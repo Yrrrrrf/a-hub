@@ -72,8 +72,28 @@ api_forge.gen_table_routes()
 api_forge.gen_view_routes()
 # api_forge.gen_fn_routes()
 
+
+# ^ Add the health route...
+# ^ This is just a temporary route to check if the API is running...
+# ^ Later on this route must be also available in the API Forge...
+# todo: Add 'status' routes to the API Forge...
+# todo: - '/status'
+# todo: - '/status/db'
+# todo: - '/status/api'
+# todo: - '/status/app'
+def add_app_routes():
+    from fastapi import APIRouter
+
+    app_router = APIRouter()
+    
+    @app_router.get("/health")
+    async def health(): return {"status": "healthy"}
+
+    app.include_router(app_router)
+
 # Add the API routes to the FastAPI app
 [app.include_router(r) for r in api_forge.get_routers()]
+add_app_routes()
 
 
 if __name__ == "__main__":
