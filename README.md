@@ -1,5 +1,5 @@
 <h1 align="center">
-   <img src="./core/static/favicon.png" alt="Some Store Icon" width="128">
+   <img src="./core/static/favicon.png" alt="A-Hub Icon" width="128">
    <div align="center">Academic Hub</div>
 </h1>
 
@@ -51,17 +51,10 @@ cd academic-hub
 2. Create a `.env` file in the project root with the following content:
 ```bash
 # * db credentials
-POSTGRES_DB="academic_hub"
-POSTGRES_USER="academic_hub_owner"
-POSTGRES_PASSWORD="some_secure_password"
-
-# * db schema passwords
-PASSWORD_infrastruct="infra_password"
-PASSWORD_HR="hr_password"
-PASSWORD_ACADEMIC="academic_password"
-PASSWORD_course_offer="course_offer_password"
-PASSWORD_STUDENT="student_password"
-PASSWORD_LIBRARY="library_password"
+DB_NAME=a_hub
+DB_OWNER_ADMIN=a_hub_admin
+DB_OWNER_PWORD=password
+DB_HOST=localhost
 ```
 
 3. Build and start the Docker containers:
@@ -85,11 +78,6 @@ Including the separation in some schemas that help to organize the data in a mor
 ![Database Schema](./resources/db_erd.png "db main schema")
 
 This separation allows for better organization and management of data.
-
-## Interface Screenshots \<academic\>
-
-![root](./resources/img/ahub-root.png "root")
-![acaedmic](./resources/img/ahub-academic.png "academic")
 
 ## Contributing
 

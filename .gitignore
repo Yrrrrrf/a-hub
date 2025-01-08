@@ -185,3 +185,5 @@ vite.config.ts.timestamp-*
 docs/
 
 backend/db/init/05_fn/
+
+todo.md

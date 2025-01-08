@@ -1,0 +1,62 @@
+version: '3.9'
+
+services:
+  a-hub-db:
+    build:
+      context: ./server/db/
+      dockerfile: db.Dockerfile
+    container_name: a-hub-db
+    environment:
+      - POSTGRES_DB=${DB_NAME:-a-hub}
+      - POSTGRES_USER=${DB_OWNER_ADMIN:-a_hub_admin}
+      - POSTGRES_PASSWORD=${DB_OWNER_PWORD:-password}
+      # Pass these variables explicitly for the init script
+      - DB_NAME=${DB_NAME:-a-hub}
+      - DB_OWNER_ADMIN=${DB_OWNER_ADMIN:-a_hub_admin}
+      - DB_OWNER_PWORD=${DB_OWNER_PWORD:-password}
+      - TZ=UTC
+    ports:
+      - "5432:5432"
+    networks:
+      - a-hub-network
+    # healthcheck:
+    #   test: ["CMD-SHELL", "pg_isready -U ${DB_OWNER_ADMIN:-a_hub_admin} -d ${DB_NAME:-a-hub}"]
+    #   interval: 10s
+    #   timeout: 5s
+    #   retries: 5
+    #   start_period: 10s
+
+  a-hub-api:
+    build:
+      context: ./server/api/
+      dockerfile: api.Dockerfile
+    container_name: a-hub-api
+    environment:
+      - DB_NAME=${DB_NAME:-a-hub}
+      - DB_HOST=a-hub-db
+      - DB_OWNER_ADMIN=${DB_OWNER_ADMIN:-a_hub_admin}
+      - DB_OWNER_PWORD=${DB_OWNER_PWORD:-password}
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./server/api:/app
+    depends_on:
+      - a-hub-db
+    networks:
+      - a-hub-network
+    # healthcheck:
+    #   test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+    #   interval: 30s
+    #   timeout: 10s
+    #   retries: 3
+    #   start_period: 10s
+
+networks:
+  a-hub-network:
+    name: a-hub-network
+    driver: bridge
+
+volumes:
+  postgres_data:
+    name: a-hub-postgres-data
+  
