@@ -9,8 +9,8 @@ export function initFooter() {
                     title: "Product",
                     links: [
                         { text: "Features", href: "/features" },
-                        { text: "Docs", href: "/docs" },
-                        { text: "API", href: "/api" },
+                        { text: "Docs", href: "https://localhost:8000/docs" },
+                        { text: "API", href: "/http://localhost:8000/openapi.json" },
                         { text: "Pricing", href: "/pricing" }
                     ]
                 },
@@ -36,11 +36,11 @@ export function initFooter() {
         })
         .showSocialLinks(true)
         .updateSocialLinks({
-            github: "https://github.com/Yrrrrrf",
+            github: "https://github.com/Yrrrrrf/a-hub",
             twitter: "https://twitter.com",
             linkedin: "https://linkedin.com"
         })
-        .showVersion(true)
+        // .showVersion(true)
         .showCopyright(true)
     ;
 }

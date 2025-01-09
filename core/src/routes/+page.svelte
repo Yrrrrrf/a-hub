@@ -78,12 +78,12 @@
               </p>
               <div class="flex gap-4 justify-center">
                   <button class="btn btn-primary btn-lg" 
-                      on:click={() => goto('/academic')}>
+                      onclick={() => goto('/academic')}>
                       <GraduationCap weight="bold" class="w-5 h-5 mr-2" />
                       Explore Programs
                   </button>
                   <button class="btn btn-outline btn-lg"
-                      on:click={() => goto('/news')}>
+                      onclick={() => goto('/news')}>
                       Latest Updates
                   </button>
               </div>

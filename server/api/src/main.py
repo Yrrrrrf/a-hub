@@ -48,7 +48,7 @@ model_forge = ModelForge(
     include_schemas=[
         # * Default schemas
         'public',
-        'user',
+        'account',
         'auth',
         # * A-Hub schemas
         'agnostic',
