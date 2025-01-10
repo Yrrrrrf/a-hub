@@ -4,9 +4,8 @@
     let { children } = $props();
 
     import { onMount } from 'svelte';
-    import { appData, apiStore } from 'rune-lab';
+    import { appData, apiStore, UIShowcase, databaseStore } from 'rune-lab';
     import { Footer, UrlDisplay, NavBar } from 'rune-lab';
-
 
     import { initFooter } from '$lib/stores/footer.svelte';
 
@@ -27,6 +26,8 @@
             VERSION: 'v1',
             TIMEOUT: 30000
         });
+
+        databaseStore.init();
     });
 
     // Meta tags derived from app data
@@ -43,6 +44,8 @@
         <meta name={meta.name} content={meta.content} />
     {/each}
 </svelte:head>
+
+<!-- <UIShowcase /> -->
 
 <NavBar />
 

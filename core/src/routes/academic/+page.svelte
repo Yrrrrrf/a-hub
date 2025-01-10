@@ -1,11 +1,6 @@
 <!-- src/routes/academic/+page.svelte -->
 <script lang="ts">
-    import { goto } from '$app/navigation';
-    import { 
-        GraduationCap,
-        CheckCircle
-    } from 'phosphor-svelte';
-    
+    import { CheckCircle } from 'phosphor-svelte';
     import { academicStore } from '$lib/stores/academic.svelte';
 
     // Get data from store using derived values
@@ -17,7 +12,7 @@
 
 <div class="min-h-screen bg-base-200">
     <!-- Hero Section -->
-    <section class="hero min-h-[70vh] relative bg-gradient-to-br from-primary/10 to-base-200">
+    <section class="hero min-h-[20vh] relative bg-gradient-to-br from-primary/10 to-base-200">
         <div class="hero-content text-center">
             <div class="max-w-4xl">
                 <h1 class="text-6xl font-bold mb-6">Academic Excellence</h1>
@@ -25,16 +20,6 @@
                     Empowering the next generation of innovators, leaders, and problem-solvers through 
                     cutting-edge education and research.
                 </p>
-                <div class="flex gap-4 justify-center">
-                    <button class="btn btn-primary btn-lg" 
-                        onclick={() => goto('/academic/programs')}>
-                        <GraduationCap weight="duotone" class="w-6 h-6 mr-2" />
-                        Explore Programs
-                    </button>
-                    <button class="btn btn-outline btn-lg">
-                        Request Information
-                    </button>
-                </div>
             </div>
         </div>
     </section>

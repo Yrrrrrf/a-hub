@@ -28,26 +28,22 @@ core/
 
 ## Getting Started
 
-1. **Install Dependencies**
-   ```bash
-   npm install
-   # or
-   pnpm install
-   # or
-   yarn
-   ```
+```bash
+# Install dependencies
+npm install
 
-2. **Development Server**
-   ```bash
-   npm run dev
-   npm run dev -- --open # or with auto browser open
-   ```
+# Start development server
+npm run dev
+```
 
-3. **Building for Production**
-   ```bash
-   npm run build        # Build for production
-   npm run preview      # Preview production build
-   ```
+# Showcasing the Academic Hub Frontend
+
+![Root](../resources/showcase/root.jpeg)
+![Academic](../resources/showcase/academic.jpeg)
+![Profile](../resources/showcase/profile.jpeg)
+![Dt-Manage](../resources/showcase/dt-manage.jpeg)
+
+
 
 ## Features
 

@@ -38,7 +38,7 @@ SELECT EXISTS(SELECT 1 FROM pg_database WHERE datname = 'a_hub') AS db_exists \g
 \else
     CREATE DATABASE a_hub
     WITH
-    OWNER = a_hub_owner
+    OWNER = a_hub_admin
     ENCODING = 'UTF8'
     LC_COLLATE = 'en_US.UTF-8'
     LC_CTYPE = 'en_US.UTF-8'
@@ -57,13 +57,19 @@ ALTER DATABASE a_hub SET search_path TO public;
 -- Grant permissions to the owner role
 DO $$
 BEGIN
-    EXECUTE format('GRANT ALL PRIVILEGES ON DATABASE a_hub TO a_hub_owner');
-    EXECUTE format('GRANT ALL PRIVILEGES ON SCHEMA public TO a_hub_owner');
-    EXECUTE format('ALTER DEFAULT PRIVILEGES FOR ROLE a_hub_owner IN SCHEMA public GRANT ALL PRIVILEGES ON TABLES TO a_hub_owner');
-    EXECUTE format('ALTER DEFAULT PRIVILEGES FOR ROLE a_hub_owner IN SCHEMA public GRANT ALL PRIVILEGES ON SEQUENCES TO a_hub_owner');
-    EXECUTE format('ALTER DEFAULT PRIVILEGES FOR ROLE a_hub_owner IN SCHEMA public GRANT ALL PRIVILEGES ON FUNCTIONS TO a_hub_owner');
-    EXECUTE format('ALTER DEFAULT PRIVILEGES FOR ROLE a_hub_owner IN SCHEMA public GRANT ALL PRIVILEGES ON TYPES TO a_hub_owner');
-    ALTER USER a_hub_owner WITH SUPERUSER;
+    EXECUTE format('GRANT ALL PRIVILEGES ON DATABASE a_hub TO a_hub_admin');
+    EXECUTE format('GRANT ALL PRIVILEGES ON SCHEMA public TO a_hub_admin');
+    EXECUTE format('ALTER DEFAULT PRIVILEGES FOR ROLE a_hub_admin IN SCHEMA public GRANT ALL PRIVILEGES ON TABLES TO a_hub_admin');
+    EXECUTE format('ALTER DEFAULT PRIVILEGES FOR ROLE a_hub_admin IN SCHEMA public GRANT ALL PRIVILEGES ON SEQUENCES TO a_hub_admin');
+    EXECUTE format('ALTER DEFAULT PRIVILEGES FOR ROLE a_hub_admin IN SCHEMA public GRANT ALL PRIVILEGES ON FUNCTIONS TO a_hub_admin');
+    EXECUTE format('ALTER DEFAULT PRIVILEGES FOR ROLE a_hub_admin IN SCHEMA public GRANT ALL PRIVILEGES ON TYPES TO a_hub_admin');
+
+    REVOKE ALL PRIVILEGES ON DATABASE a_hub FROM postgres;
+    REVOKE ALL PRIVILEGES ON SCHEMA public FROM postgres;
+    REVOKE ALL PRIVILEGES ON ALL TABLES IN SCHEMA public FROM postgres;
+    REVOKE ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public FROM postgres;
+    REVOKE ALL PRIVILEGES ON ALL FUNCTIONS IN SCHEMA public FROM postgres;
+    ALTER USER a_hub_admin WITH SUPERUSER;
 END $$;
 
 -- Enable necessary extensions

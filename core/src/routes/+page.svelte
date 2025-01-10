@@ -64,32 +64,35 @@
 </script>
 
 <div class="min-h-screen bg-base-200">
-  <!-- Hero Section -->
-  <section class="hero min-h-[80vh] relative bg-gradient-to-br from-primary/10 to-base-200">
-      <div class="hero-content text-center">
-          <div class="max-w-4xl">
-              <h1 class="text-6xl font-bold mb-4">Welcome to Academic Hub</h1>
-              <h2 class="text-3xl font-bold text-primary mb-8">
-                  Shaping Tomorrow's Leaders
-              </h2>
-              <p class="text-xl mb-8 max-w-2xl mx-auto">
-                  Discover a world-class education experience that combines academic excellence,
-                  innovative research, and a vibrant campus community.
-              </p>
-              <div class="flex gap-4 justify-center">
-                  <button class="btn btn-primary btn-lg" 
-                      onclick={() => goto('/academic')}>
-                      <GraduationCap weight="bold" class="w-5 h-5 mr-2" />
-                      Explore Programs
-                  </button>
-                  <button class="btn btn-outline btn-lg"
-                      onclick={() => goto('/news')}>
-                      Latest Updates
-                  </button>
-              </div>
-          </div>
-      </div>
-  </section>
+    <!-- Hero Section -->
+    <section 
+    class="hero min-h-[80vh] relative bg-gradient-to-br from-primary/10 to-base-200 bg-cover bg-center" 
+    style="background-image: url({'/vitrum.jpg'});">
+    <div class="hero-overlay bg-black/30 backdrop-blur-sm"></div> <!-- Optional overlay -->
+    <div class="hero-content text-center relative z-10">
+        <div class="max-w-4xl">
+            <h1 class="text-6xl font-bold mb-4">Welcome to Academic Hub</h1>
+            <h2 class="text-3xl font-bold text-primary mb-8">
+                Shaping Tomorrow's Leaders
+            </h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto">
+                Discover a world-class education experience that combines academic excellence,
+                innovative research, and a vibrant campus community.
+            </p>
+            <div class="flex gap-4 justify-center">
+                <button class="btn btn-primary btn-lg" 
+                    onclick={() => goto('/academic')}>
+                    <GraduationCap weight="bold" class="w-5 h-5 mr-2" />
+                    Explore Programs
+                </button>
+                <button class="btn btn-outline btn-lg"
+                    onclick={() => goto('/news')}>
+                    Latest Updates
+                </button>
+            </div>
+        </div>
+    </div>
+    </section>
 
   <!-- Features Section -->
   <section class="py-20 container mx-auto px-4">
@@ -98,11 +101,9 @@
           {#each academicFeatures as feature}
               <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300">
                   <div class="card-body items-center text-center">
-                      <svelte:component this={feature.icon} 
-                          weight="duotone"
-                          class="w-16 h-16 text-primary mb-6" />
-                      <h3 class="card-title text-2xl mb-4">{feature.title}</h3>
-                      <p class="text-base-content/80 text-lg">{feature.description}</p>
+                        <feature.icon class="w-16 h-16 text-primary mb-6" />
+                        <h3 class="card-title text-2xl mb-4">{feature.title}</h3>
+                        <p class="text-base-content/80 text-lg">{feature.description}</p>
                   </div>
               </div>
           {/each}
@@ -134,11 +135,9 @@
           {#each coreModules as module}
               <div class="card bg-base-200 shadow-lg hover:shadow-xl transition-all">
                   <div class="card-body items-center text-center">
-                      <svelte:component this={module.icon} 
-                          weight="duotone"
-                          class="w-12 h-12 text-primary mb-4" />
-                      <h3 class="card-title text-xl mb-4">{module.title}</h3>
-                      <p class="text-base-content/70">{module.description}</p>
+                        <module.icon class="w-12 h-12 text-primary mb-4" />
+                        <h3 class="card-title text-xl mb-4">{module.title}</h3>
+                        <p class="text-base-content/70">{module.description}</p>
                   </div>
               </div>
           {/each}

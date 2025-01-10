@@ -2,6 +2,8 @@
 \set ON_ERROR_STOP on
 \set ECHO all
 
+\c a_hub
+
 -- Enable necessary extensions in the database
 DO $$
 DECLARE
@@ -23,10 +25,6 @@ END $$;
 --
 -- # Note:
 --     Ensure this script is run by a user with sufficient privileges to create schemas and roles.
-
--- Enable psql command echoing and stop on error
-\set ON_ERROR_STOP on
-\set ECHO all
 
 -- ^ Enable necessary extensions in the database
 --    These extensions provide additional functionality for data management and analysis.
@@ -73,6 +71,7 @@ CREATE OR REPLACE FUNCTION create_and_grant_role(
 DECLARE
     schema_name TEXT;
 BEGIN
+
     -- Create role if it doesn't exist, otherwise update password
     IF NOT EXISTS (SELECT FROM pg_roles WHERE rolname = role_name) THEN
         EXECUTE format('CREATE ROLE %I WITH LOGIN PASSWORD %L', role_name, role_password);
@@ -104,17 +103,18 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-\c a_hub
+
 
 -- Create schemas
 SELECT create_schemas(ARRAY[
     -- * main schemas
-    'user',        -- For user information and roles
     'auth',        -- For user authentication and authorization
+    'account',        -- For user information and roles
 
     -- * additional schemas
     'agnostic',    -- For shared data across modules
     'infrastruct', -- For infrastruct and system data
+    'hr',          -- For human resources management module
     'academic',    -- For academic management module
     'course-offer',-- For course offerings and scheduling
     'student',     -- For student information and records
