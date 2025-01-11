@@ -6,7 +6,6 @@ import {
     Books,
     Globe,
     Users,
-    Trophy,
     GraduationCap,
     ChartLine,
 } from 'phosphor-svelte';

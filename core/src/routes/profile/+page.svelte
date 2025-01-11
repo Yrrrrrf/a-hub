@@ -12,6 +12,7 @@
     
     import { profileStore } from '$lib/stores/profile.svelte';
 
+    let quickLinks = $derived(profileStore.getQuickLinks());
     // Get data from store using derived values
     let profile = $derived(profileStore.profile);
     let academic = $derived(profileStore.academicInfo);
@@ -127,53 +128,29 @@
                     </div>
                 </div>
 
-                <!-- Quick Links -->
                 <div class="card bg-base-100 shadow-xl">
-                    <div class="card-body">
-                        <h2 class="card-title flex items-center gap-2">
-                            <Star weight="duotone" class="text-primary" />
-                            Quick Links
-                        </h2>
-                        <div class="space-y-2">
-                            <button class="btn btn-ghost w-full justify-between text-left hover:bg-primary/10 group">
-                                <span class="flex items-center gap-2">
-                                    <Books weight="duotone" />
-                                    Academic Records
-                                </span>
-                                <CaretRight class="transition-transform group-hover:translate-x-1" />
-                            </button>
-                            <button class="btn btn-ghost w-full justify-between text-left hover:bg-primary/10 group">
-                                <span class="flex items-center gap-2">
-                                    <Calendar weight="duotone" />
-                                    Course Registration
-                                </span>
-                                <CaretRight class="transition-transform group-hover:translate-x-1" />
-                            </button>
-                            <button class="btn btn-ghost w-full justify-between text-left hover:bg-primary/10 group">
-                                <span class="flex items-center gap-2">
-                                    <Clock weight="duotone" />
-                                    Schedule
-                                </span>
-                                <CaretRight class="transition-transform group-hover:translate-x-1" />
-                            </button>
-                            <button class="btn btn-ghost w-full justify-between text-left hover:bg-primary/10 group">
-                                <span class="flex items-center gap-2">
-                                    <Blueprint weight="duotone" />
-                                    Requests
-                                    </span>
-                                <CaretRight class="transition-transform group-hover:translate-x-1" />
-                            </button>
-                            <button class="btn btn-ghost w-full justify-between text-left hover:bg-primary/10 group">
-                                <span class="flex items-center gap-2">
-                                    <Gear weight="duotone" />
-                                    Settings
-                                </span>
-                                <CaretRight class="transition-transform group-hover:translate-x-1" />
-                            </button>
+					<div class="card-body">
+						<h2 class="card-title flex items-center gap-2">
+							<Star weight="duotone" class="text-primary" />
+							Quick Links
+						</h2>
+						<div class="space-y-2">
+							{#each quickLinks as link}
+								<a
+									href={link.href}
+									class="btn btn-ghost w-full justify-between text-left hover:bg-primary/10 group"
+								>
+									<span class="flex items-center gap-2">
+										<link.icon class="w-5 h-5" />
+										{link.text}
+									</span>
+									<CaretRight class="transition-transform group-hover:translate-x-1 w-5 h-5" />
+								</a>
+							{/each}
+						</div>
+					</div>
+				</div>
 
-                        </div>
-                    </div>
-                </div>
             </div>
 
             <!-- Main Column -->

@@ -1,3 +1,23 @@
+import {
+	User,
+	EnvelopeSimple,
+	GraduationCap,
+	Clock,
+	BookOpen,
+	CaretRight,
+	FileText,
+	Books,
+	Star,
+	Gear,
+	Blueprint,
+	Buildings,
+	Bell,
+	Calendar,
+	ListChecks,
+	Pencil
+} from 'phosphor-svelte';
+
+
 // src/lib/stores/profile.svelte.ts
 export interface UserProfile {
     id: string;
@@ -67,6 +87,12 @@ export interface Deadline {
     course: string;
     task: string;
     dueDate: string;
+}
+
+export interface QuickLink {
+	icon: any; // Use a more specific type if possible, like a Phosphor icon type
+	text: string;
+	href: string;
 }
 
 class ProfileStore {
@@ -187,6 +213,40 @@ class ProfileStore {
         }
     ]);
 
+    // Quick Links
+    quickLinks = $state<QuickLink[]>([
+        {
+            icon: BookOpen,
+            text: 'Academic Records',
+            href: '/profile/records'
+        },
+        {
+            icon: Calendar,
+            text: 'Course Registration',
+            href: '/profile/course-registration' // Replace with your actual route
+        },
+        {
+            icon: Clock,
+            text: 'Schedule',
+            href: '/profile/schedule' // Replace with your actual route
+        },
+        {
+            icon: ListChecks,
+            text: 'Requests',
+            href: '/profile/requests'
+        },
+        {
+            icon: Gear,
+            text: 'Settings',
+            href: '/profile/settings'
+        },
+        {
+            icon: Pencil,
+            text: 'Edit Profile',
+            href: '/profile/edit'
+        }
+    ]);
+
     // Computed properties
     avatarUrl = $derived(
         `https://api.dicebear.com/7.x/avataaars/svg?seed=${this.profile.username}`
@@ -220,6 +280,9 @@ class ProfileStore {
     addDeadline(deadline: Deadline) {
         this.upcomingDeadlines = [...this.upcomingDeadlines, deadline];
     }
+
+    // Add a method to get the quickLinks
+	getQuickLinks = () => this.quickLinks;
 }
 
 export const profileStore = new ProfileStore();

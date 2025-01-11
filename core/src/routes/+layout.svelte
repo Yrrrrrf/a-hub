@@ -4,15 +4,19 @@
     let { children } = $props();
 
     import { onMount } from 'svelte';
-    import { appData, apiStore, UIShowcase, databaseStore } from 'rune-lab';
+    import { appData, apiStore, Kyntharil, } from 'rune-lab';
+    // import {  UIShowcase, databaseStore, } from 'rune-lab';
     import { Footer, UrlDisplay, NavBar } from 'rune-lab';
 
     import { initFooter } from '$lib/stores/footer.svelte';
+	// import { requestsStore } from '$lib/stores/requests.svelte';
 
     initFooter();  // Initialize footer data
 
-    
+
     onMount(() => {  // Initialize main app data
+        // requestsStore.getRequestTypes(); // No need to call other get methods, they are just getters.
+
         appData.init({  // Initialize app data
             name: 'A-Hub',
             version: 'v0.2.0',
@@ -27,7 +31,7 @@
             TIMEOUT: 30000
         });
 
-        databaseStore.init();
+        // databaseStore.init();
     });
 
     // Meta tags derived from app data
@@ -48,7 +52,7 @@
 <!-- <UIShowcase /> -->
 
 <NavBar />
-
+<Kyntharil />
 <div class="min-h-screen flex flex-col">
     <main class="flex-grow">
         {@render children()}

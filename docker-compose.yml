@@ -1,5 +1,5 @@
 services:
-  a-hub-db:
+  db:
     build:
       context: ./server/db/
       dockerfile: db.Dockerfile
@@ -16,7 +16,7 @@ services:
     ports:
       - "5432:5432"
     networks:
-      - a-hub-network
+      - network
     # healthcheck:
     #   test: ["CMD-SHELL", "pg_isready -U ${DB_OWNER_ADMIN:-a_hub_admin} -d ${DB_NAME:-a-hub}"]
     #   interval: 10s
@@ -24,14 +24,14 @@ services:
     #   retries: 5
     #   start_period: 10s
 
-  a-hub-api:
+  api:
     build:
       context: ./server/api/
       dockerfile: api.Dockerfile
     container_name: a-hub-api
     environment:
       - DB_NAME=${DB_NAME:-a-hub}
-      - DB_HOST=a-hub-db
+      - DB_HOST=db
       - DB_OWNER_ADMIN=${DB_OWNER_ADMIN:-a_hub_admin}
       - DB_OWNER_PWORD=${DB_OWNER_PWORD:-password}
     ports:
@@ -39,9 +39,9 @@ services:
     volumes:
       - ./server/api:/app
     depends_on:
-      - a-hub-db
+      - db
     networks:
-      - a-hub-network
+      - network
     # healthcheck:
     #   test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
     #   interval: 30s
@@ -49,12 +49,28 @@ services:
     #   retries: 3
     #   start_period: 10s
 
+  # core:
+  #   build:
+  #     context: ./core
+  #     dockerfile: Dockerfile
+  #   container_name: a-hub-core
+  #   environment:
+  #     - VITE_API_URL=http://api:8000
+  #   ports:
+  #     - "5173:5173"
+  #   volumes:
+  #     - ./core:/app
+  #     - /app/node_modules
+  #   depends_on:
+  #     - api
+  #   networks:
+  #     - network
+
 networks:
-  a-hub-network:
+  network:
     name: a-hub-network
     driver: bridge
 
 volumes:
   postgres_data:
     name: a-hub-postgres-data
-  
