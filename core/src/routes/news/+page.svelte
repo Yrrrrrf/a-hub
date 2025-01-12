@@ -1,15 +1,8 @@
 <!-- src/routes/news/+page.svelte -->
 <script lang="ts">
     import { 
-        MagnifyingGlass, FunnelSimple,
-        Newspaper, CalendarCheck, Tag, Clock, 
-        Share, BookOpen, Users, Trophy, Bell, 
-        Buildings, Student, CaretRight, ArrowSquareOut,
-        CalendarPlus,
-        MapPin,
-        SealCheck,
-        WarningCircle,
-        Info
+        MagnifyingGlass, FunnelSimple, Newspaper, CalendarCheck, Tag, Clock, 
+        BookOpen, Bell, CaretRight, ArrowSquareOut, CalendarPlus, MapPin,
     } from 'phosphor-svelte';
     
     import { newsStore } from '$lib/stores/news.svelte';
@@ -26,15 +19,6 @@
             case 'Medium': return 'badge-warning';
             case 'Normal': return 'badge-info';
             default: return 'badge-ghost';
-        }
-    }
-
-    function getPriorityIcon(priority: string) {
-        switch(priority) {
-            case 'High': return WarningCircle;
-            case 'Medium': return Info;
-            case 'Normal': return SealCheck;
-            default: return Info;
         }
     }
 </script>
