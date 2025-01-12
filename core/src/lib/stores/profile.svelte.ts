@@ -17,6 +17,16 @@ import {
 	Pencil
 } from 'phosphor-svelte';
 
+class CredentialStore {
+    isVisible = $state(false);
+
+    toggle() {
+        this.isVisible = !this.isVisible;
+        console.log('Credential visibility:', this.isVisible);
+    }
+}
+
+export const credentialStore = new CredentialStore();
 
 // src/lib/stores/profile.svelte.ts
 export interface UserProfile {
@@ -240,11 +250,11 @@ class ProfileStore {
             text: 'Settings',
             href: '/profile/settings'
         },
-        {
-            icon: Pencil,
-            text: 'Edit Profile',
-            href: '/profile/edit'
-        }
+        // {
+        //     icon: Pencil,
+        //     text: 'Edit Profile',
+        //     href: '/profile/edit'
+        // }
     ]);
 
     // Computed properties
