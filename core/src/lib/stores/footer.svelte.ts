@@ -1,5 +1,4 @@
-import {  footerStore } from 'rune-lab';
-
+import { footerStore } from "rune-lab";
 
 export function initFooter() {
     footerStore

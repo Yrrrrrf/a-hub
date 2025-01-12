@@ -28,12 +28,6 @@
 
 <div class="card bg-base-100 shadow-xl">
     <div class="card-body p-2">
-        <!-- Header -->
-        <div class="text-center mb-6 p-4">
-            <h2 class="text-3xl font-bold">Weekly Schedule</h2>
-            <p class="text-base-content/70">Fall 2023</p>
-        </div>
-
         <!-- Calendar Grid -->
         <div class="overflow-x-auto">
             <div class="schedule-grid min-w-[800px]">

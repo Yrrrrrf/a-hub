@@ -42,6 +42,11 @@ npm run dev
 ![Academic](../resources/showcase/academic.jpeg)
 ![Profile](../resources/showcase/profile.jpeg)
 ![Dt-Manage](../resources/showcase/dt-manage.jpeg)
+![Academic-Records](../resources/showcase/academic-records.jpeg)
+![Course-Registration](../resources/showcase/course-registration.jpeg)
+![Credential](../resources/showcase/credential.jpeg)
+![Current-Schedule](../resources/showcase/current-schedule.jpeg)
+![Requests](../resources/showcase/requests.jpeg)
 
 
 

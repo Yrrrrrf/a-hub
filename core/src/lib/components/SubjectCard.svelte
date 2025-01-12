@@ -3,14 +3,28 @@
     import { 
         Clock, BookOpen, ChalkboardTeacher,
         Star, Info, CheckCircle, Warning,
-        XCircle
+        XCircle, IconWeight, Icon
     } from 'phosphor-svelte';
 
-    type SubjectStatus = 'Not Started' | 'In Progress' | 'Passed' | 'Failed';
-    type SubjectType = 'basic' | 'core' | 'advanced';
+    export type SubjectStatus = 'Not Started' | 'In Progress' | 'Passed' | 'Failed';
+    export type SubjectType = 'basic' | 'core' | 'advanced';
+
+    type StatusConfig = {
+        [K in SubjectStatus]: {
+            color: string;
+            icon: Icon;
+        }
+    };
+
+    type TypeConfig = {
+        [K in SubjectType]: {
+            color: string;
+            icon: Icon;
+        }
+    };
 
     // Props using runes
-    let { subject, status, grade, color, theoreticalHours, practiceHours, isRequired } = $props<{
+    let { subject, status = 'Not Started', grade, color, theoreticalHours = 0, practiceHours = 0, isRequired = true } = $props<{
         subject: {
             id: string;
             code: string;
@@ -32,16 +46,16 @@
     let isHovered = $state(false);
 
     // Computed values
-    let totalHours = $derived((theoreticalHours || 0) + (practiceHours || 0));
+    let totalHours = $derived(theoreticalHours + practiceHours);
 
-    const statusConfig = {
+    const statusConfig: StatusConfig = {
         'Not Started': { color: 'bg-base-200', icon: Info },
         'In Progress': { color: 'bg-warning', icon: Clock },
         'Passed': { color: 'bg-success', icon: CheckCircle },
         'Failed': { color: 'bg-error', icon: XCircle }
     };
 
-    const typeConfig = {
+    const typeConfig: TypeConfig = {
         'basic': { color: 'border-base-300', icon: BookOpen },
         'core': { color: 'border-primary', icon: Star },
         'advanced': { color: 'border-secondary', icon: ChalkboardTeacher }
@@ -56,6 +70,10 @@
             isHovered = !isHovered;
         }
     }
+
+    // Get current icons based on type and status
+    let StatusIcon = $derived(statusConfig[status].icon);
+    let TypeIcon = $derived(typeConfig[subject.category].icon);
 </script>
 
 <div
@@ -82,7 +100,7 @@
             <div class="flex flex-col h-full justify-between {isHovered ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300">
                 <div class="flex-grow">
                     <div class="flex items-center gap-2 mb-1">
-                        <svelte:component this={typeConfig[subject.category].icon} weight="duotone" class="w-4 h-4" />
+                        <TypeIcon weight="duotone" class="w-4 h-4" />
                         <h3 class="font-bold text-sm line-clamp-2">{subject.title}</h3>
                     </div>
                     <p class="text-xs opacity-70">{subject.code}</p>
@@ -103,12 +121,12 @@
             <div class="absolute inset-0 bg-base-100 p-3 flex flex-col {isHovered ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300 overflow-y-auto">
                 <!-- Status and Category -->
                 <div class="flex items-center gap-2 mb-2">
-                    <div class="badge gap-1 {statusConfig[status || 'Not Started'].color}">
-                        <svelte:component this={statusConfig[status || 'Not Started'].icon} class="w-3 h-3" />
+                    <div class="badge gap-1 {statusConfig[status].color}">
+                        <StatusIcon class="w-3 h-3" />
                         {status}
                     </div>
                     <div class="badge badge-ghost gap-1">
-                        <svelte:component this={typeConfig[subject.category].icon} class="w-3 h-3" />
+                        <TypeIcon class="w-3 h-3" />
                         {subject.category}
                     </div>
                 </div>

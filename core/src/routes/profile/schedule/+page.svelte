@@ -1,8 +1,3 @@
-<!-- <script lang="ts">
-	import WeeklySchedule from './WeeklySchedule.svelte';
-</script>
-
-<WeeklySchedule /> -->
 <!-- src/routes/profile/schedule/+page.svelte -->
 <script lang="ts">
     import { 
