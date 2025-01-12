@@ -8,6 +8,13 @@ import {
     Users,
     GraduationCap,
     ChartLine,
+    Palette,
+    // Flash,
+    Flask,
+    Microscope,
+    ChartDonut,
+    Envelope
+
 } from 'phosphor-svelte';
 
 // Type for Phosphor icons
@@ -123,7 +130,117 @@ class AcademicStore {
                 'Manufacturing Engineer',
                 'R&D Engineer'
             ]
-        }
+        },
+    {
+              id: 'eng-elec',
+              name: 'Electrical Engineering',
+              code: 'IEE',
+              description: 'Power the world with innovations in electrical systems',
+              duration: '9 semesters',
+              icon: Envelope,
+              credits: 355,
+              coordinator: 'Dr. Emily Davis',
+              details: [
+                'Power Systems',
+                'Electronics',
+                'Control Systems',
+                'Telecommunications'
+              ],
+              career_options: [
+                'Power Engineer',
+                'Electronics Engineer',
+                'Control Systems Engineer',
+                'Telecommunications Engineer'
+              ]
+            },
+            {
+              id: 'eng-chem',
+              name: 'Chemical Engineering',
+              code: 'IQU',
+              description: 'Transform materials and develop sustainable processes',
+              duration: '9 semesters',
+              icon: Flask,
+              credits: 360,
+              coordinator: 'Dr. Robert Brown',
+              details: [
+                'Process Engineering',
+                'Biotechnology',
+                'Materials Science',
+                'Environmental Engineering'
+              ],
+              career_options: [
+                'Process Engineer',
+                'Biochemical Engineer',
+                'Materials Engineer',
+                'Environmental Consultant'
+              ]
+            },
+            {
+              id: 'bus-admin',
+              name: 'Business Administration',
+              code: 'ADE',
+              description: 'Lead organizations and drive strategic growth',
+              duration: '8 semesters',
+              icon: ChartDonut,
+              credits: 320,
+              coordinator: 'Dr. Lisa Green',
+              details: [
+                'Management',
+                'Finance',
+                'Marketing',
+                'Entrepreneurship'
+              ],
+              career_options: [
+                'Business Analyst',
+                'Financial Manager',
+                'Marketing Director',
+                'Entrepreneur'
+              ]
+            },
+            {
+              id: 'art-hist',
+              name: 'History of Art',
+              code: 'HAR',
+              description: 'Explore the evolution of art and visual culture',
+              duration: '8 semesters',
+              icon: Palette,
+              credits: 300,
+              coordinator: 'Dr. Michael Angelo',
+              details: [
+                'Renaissance Art',
+                'Modern Art',
+                'Contemporary Art',
+                'Art Theory'
+              ],
+              career_options: [
+                'Art Historian',
+                'Curator',
+                'Art Critic',
+                'Museum Educator'
+              ]
+            },
+            {
+              id: 'sci-bio',
+              name: 'Biological Sciences',
+              code: 'BIO',
+              description: 'Uncover the mysteries of life and living organisms',
+              duration: '8 semesters',
+              icon: Microscope,
+              credits: 330,
+              coordinator: 'Dr. Jane Wilson',
+              details: [
+                'Molecular Biology',
+                'Ecology',
+                'Genetics',
+                'Biochemistry'
+              ],
+              career_options: [
+                'Research Scientist',
+                'Biotechnologist',
+                'Environmental Scientist',
+                'Science Educator'
+              ]
+            }
     ]);
 
     // Key features

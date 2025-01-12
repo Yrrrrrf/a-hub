@@ -1,28 +1,19 @@
 <script lang="ts">
-	import {
-		Buildings,
-		MapPin,
-		Clock,
-		Info,
-		MagnifyingGlass,
-		Users,
-		BookOpen,
-		Coffee,
-		Laptop,
-		Trophy,
-        Bookmark,
-		Chalkboard,
-	} from 'phosphor-svelte';
+	import { Buildings, MapPin, Info, Bookmark } from 'phosphor-svelte';
 	import { infrastructureStore } from '$lib/stores/infrastructure.svelte';
+    import { fade } from 'svelte/transition';
+    import { aboutStore } from '$lib/stores/about.svelte';
 
+	
 	// Access store data using runes
 	let locations = $derived(infrastructureStore.getAllCampuses());
 	let facilityTypes = $derived(infrastructureStore.getFacilityTypes());
 	let campusStats = $derived(infrastructureStore.getCampusStats());
 	let latestUpdates = $derived(infrastructureStore.getLatestUpdates());
-
+	
 	let searchQuery = $state('');
-
+	let highlights = $derived(aboutStore.campusHighlights);
+	
 	// Filtered buildings based on search query
 	let filteredBuildings = $derived(
 		searchQuery
@@ -151,6 +142,51 @@
 			</div>
 		</div>
 	</section>
+
+
+    <!-- Campus Highlights -->
+    <section class="py-20 bg-base-100">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">Campus Highlights</h2>
+                <p class="text-xl opacity-80 max-w-2xl mx-auto">
+                    Experience our world-class facilities and vibrant campus life.
+                </p>
+            </div>
+
+            <div class="space-y-12">
+                {#each highlights as highlight, i}
+                    <div class="card lg:card-side bg-base-200 shadow-xl overflow-hidden" 
+                         class:flex-row-reverse={i % 2 === 1}
+                         transition:fade>
+                        <figure class="lg:w-1/2">
+                            <img src={highlight.image} 
+                                 alt={highlight.title}
+                                 class="w-full h-full object-cover" />
+                        </figure>
+                        <div class="card-body lg:w-1/2">
+                            <h3 class="card-title text-2xl">{highlight.title}</h3>
+                            <p class="text-base-content/80 mb-6">{highlight.description}</p>
+                            
+                            {#if highlight.stats}
+                                <div class="stats stats-vertical lg:stats-horizontal shadow bg-base-100">
+                                    {#each highlight.stats as stat}
+                                        <div class="stat">
+                                            <div class="stat-title">{stat.label}</div>
+                                            <div class="stat-value text-primary">{stat.value}</div>
+                                        </div>
+                                    {/each}
+                                </div>
+                            {/if}
+                        </div>
+                    </div>
+                {/each}
+            </div>
+        </div>
+    </section>
+
+
+
 
 	<section class="py-16 container mx-auto px-4">
 		<h2 class="text-3xl font-bold text-center mb-12">

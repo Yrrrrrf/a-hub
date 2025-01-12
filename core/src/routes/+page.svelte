@@ -65,50 +65,50 @@
 
 <div class="min-h-screen bg-base-200">
     <!-- Hero Section -->
-    <section 
-    class="hero min-h-[80vh] relative bg-gradient-to-br from-primary/10 to-base-200 bg-cover bg-center" 
-    style="background-image: url({'/vitrum.jpg'});">
-    <div class="hero-overlay bg-black/30 backdrop-blur-sm"></div> <!-- Optional overlay -->
-    <div class="hero-content text-center relative z-10">
-        <div class="max-w-4xl">
-            <h1 class="text-6xl font-bold mb-4">Welcome to Academic Hub</h1>
-            <h2 class="text-3xl font-bold text-primary mb-8">
-                Shaping Tomorrow's Leaders
-            </h2>
-            <p class="text-xl mb-8 max-w-2xl mx-auto">
-                Discover a world-class education experience that combines academic excellence,
-                innovative research, and a vibrant campus community.
-            </p>
-            <div class="flex gap-4 justify-center">
-                <button class="btn btn-primary btn-lg" 
-                    onclick={() => goto('/academic')}>
-                    <GraduationCap weight="bold" class="w-5 h-5 mr-2" />
-                    Explore Programs
-                </button>
-                <button class="btn btn-outline btn-lg"
-                    onclick={() => goto('/news')}>
-                    Latest Updates
-                </button>
+        <section 
+            class="hero min-h-[80vh] relative bg-gradient-to-br from-primary/10 to-base-200 bg-cover bg-center" 
+            style="background-image: url({'/vitrum.jpg'});">
+        <div class="hero-overlay bg-black/30 backdrop-blur-sm"></div> <!-- Optional overlay -->
+        <div class="hero-content text-center relative z-10">
+            <div class="max-w-4xl">
+                <h1 class="text-6xl font-bold mb-4">Welcome to Academic Hub</h1>
+                <h2 class="text-3xl font-bold text-primary mb-8">
+                    Shaping Tomorrow's Leaders
+                </h2>
+                <p class="text-xl mb-8 max-w-2xl mx-auto">
+                    Discover a world-class education experience that combines academic excellence,
+                    innovative research, and a vibrant campus community.
+                </p>
+                <div class="flex gap-4 justify-center">
+                    <button class="btn btn-primary btn-lg" 
+                        onclick={() => goto('/about')}>
+                        <GraduationCap weight="bold" class="w-5 h-5 mr-2" />
+                        About Us
+                    </button>
+                    <button class="btn btn-outline btn-lg"
+                        onclick={() => goto('/news')}>
+                        Latest Updates
+                    </button>
+                </div>
             </div>
         </div>
-    </div>
     </section>
 
-  <!-- Features Section -->
-  <section class="py-20 container mx-auto px-4">
-      <h2 class="text-4xl font-bold text-center mb-16">Why Choose Us</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {#each academicFeatures as feature}
-              <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300">
-                  <div class="card-body items-center text-center">
+    <!-- Features Section -->
+    <section class="py-20 container mx-auto px-4">
+        <h2 class="text-4xl font-bold text-center mb-16">Why Choose Us</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {#each academicFeatures as feature}
+                <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300">
+                    <div class="card-body items-center text-center">
                         <feature.icon class="w-16 h-16 text-primary mb-6" />
                         <h3 class="card-title text-2xl mb-4">{feature.title}</h3>
                         <p class="text-base-content/80 text-lg">{feature.description}</p>
-                  </div>
-              </div>
-          {/each}
-      </div>
-  </section>
+                    </div>
+                </div>
+            {/each}
+        </div>
+    </section>
 
   <!-- Statistics Section -->
   <section class="bg-primary text-primary-content py-20">
