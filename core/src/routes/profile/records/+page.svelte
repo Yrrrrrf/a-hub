@@ -1,12 +1,26 @@
+<!-- src/routes/profile/records/+page.svelte -->
 <script lang="ts">
+    import { 
+        ChartLine, Calculator, Printer, ArrowCounterClockwise,
+        GraduationCap, MagnifyingGlass, Download,
+    } from 'phosphor-svelte';
+    
+    import SemesterCard from './SemesterCard.svelte';
     import { academicRecords } from '$lib/stores/records.svelte';
-    import { GraduationCap, MagnifyingGlass } from 'phosphor-svelte';
+    import { profileStore } from '$lib/stores/profile.svelte';
     
+    // State management with runes
     let loading = $state(false);
+
+    // todo: Fix the search term
+    // todo: Fix the search behavior in the component itself...
     let searchTerm = $state('');
-    let semesters = $derived(academicRecords.semesters);
     
-    // Filter semesters based on search
+    // Derived values
+    let semesters = $derived(academicRecords.semesters);
+    let academic = $derived(profileStore.academicInfo);
+    
+    // Filtered semesters
     let filteredSemesters = $derived(
         searchTerm === ''
             ? semesters
@@ -20,6 +34,7 @@
             )
     );
 
+    // Actions
     function handlePrint() {
         window.print();
     }
@@ -27,85 +42,113 @@
     function handleReset() {
         academicRecords.reset();
     }
+
+    function handleSearch(e: Event) {
+        const input = e.target as HTMLInputElement;
+        searchTerm = input.value;
+    }
 </script>
 
-<div class="container mx-auto px-4 py-8">
-    <div class="flex justify-between items-center mb-8">
-        <h1 class="text-3xl font-bold flex items-center gap-2">
-            <GraduationCap class="text-primary" weight="duotone" size={32} />
-            Academic Records
-        </h1>
+<div class="min-h-screen space-y-8">
+    <!-- Header Section -->
+    <div class="bg-gradient-to-br from-primary/10 via-base-100 to-base-200 py-12">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-start gap-8">
+                <!-- Title and Description -->
+                <div class="space-y-4">
+                    <h1 class="text-4xl font-bold flex items-center gap-3">
+                        <GraduationCap weight="duotone" class="text-primary w-10 h-10" />
+                        Academic Records
+                    </h1>
+                    <p class="text-xl opacity-80 max-w-xl">
+                        View and track your academic progress through all semesters.
+                    </p>
+                </div>
 
-        <!-- Search bar -->
-        <div class="join">
-            <input
-                type="text"
-                bind:value={searchTerm}
-                placeholder="Search courses..."
-                class="input input-bordered join-item"
-            />
-            <button class="btn btn-primary join-item" aria-label="Search">
-                <MagnifyingGlass size={20} />
-            </button>
+                <!-- Overall Stats -->
+                <div class="stats bg-base-200 shadow">
+                    <div class="stat">
+                        <div class="stat-figure text-primary">
+                            <ChartLine weight="duotone" class="w-8 h-8" />
+                        </div>
+                        <div class="stat-title">Overall GPA</div>
+                        <div class="stat-value">{academic.gpa}</div>
+                        <div class="stat-desc">Current Standing</div>
+                    </div>
+                    
+                    <div class="stat">
+                        <div class="stat-figure text-secondary">
+                            <Calculator weight="duotone" class="w-8 h-8" />
+                        </div>
+                        <div class="stat-title">Credits</div>
+                        <div class="stat-value text-secondary">{academic.creditsCompleted}</div>
+                        <div class="stat-desc">of {academic.creditsRequired} Required</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    {#if loading}
-        <div class="flex justify-center py-12">
-            <span class="loading loading-spinner loading-lg"></span>
-        </div>
-    {:else}
-        <div class="space-y-8">
-            {#each filteredSemesters as semester (semester.id)}
-                <div class="card bg-base-100">
-                    <div class="card-body">
-                        <h3 class="text-xl font-semibold flex items-center gap-2">
-                            {semester.semester} {semester.year}
-                            <span class="badge badge-primary">GPA: {semester.gpa}</span>
-                        </h3>
-                        
-                        <div class="overflow-x-auto">
-                            <table class="table w-full">
-                                <thead>
-                                    <tr>
-                                        <th>Course Code</th>
-                                        <th>Course Name</th>
-                                        <th>Credits</th>
-                                        <th>Grade</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {#each semester.courses as course}
-                                        <tr class="hover">
-                                            <td>{course.code}</td>
-                                            <td>{course.name}</td>
-                                            <td>{course.credits}</td>
-                                            <td>{course.grade}</td>
-                                        </tr>
-                                    {/each}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            {/each}
+    <!-- Main Content -->
+    <div class="container mx-auto px-4">
+        <!-- Search and Actions -->
+        <div class="flex flex-col sm:flex-row justify-between items-center gap-4 mb-8">
+            <!-- Search -->
+            <div class="join w-full sm:w-auto">
+                <input
+                    type="text"
+                    value={searchTerm}
+                    oninput={handleSearch}
+                    placeholder="Search courses..."
+                    class="input input-bordered join-item flex-1"
+                />
+                <button class="btn btn-primary join-item" aria-label="Search">
+                    <MagnifyingGlass size={20} />
+                </button>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex gap-2">
+                <button 
+                    class="btn btn-ghost btn-sm" 
+                    onclick={handleReset}
+                >
+                    <ArrowCounterClockwise weight="duotone" class="w-4 h-4" />
+                    Reset
+                </button>
+                <button 
+                    class="btn btn-ghost btn-sm"
+                    onclick={handlePrint}
+                >
+                    <Printer weight="duotone" class="w-4 h-4" />
+                    Print
+                </button>
+                <button class="btn btn-primary btn-sm">
+                    <Download weight="duotone" class="w-4 h-4" />
+                    Export
+                </button>
+            </div>
         </div>
 
-        <div class="flex justify-end gap-4 mt-8">
-            <button class="btn btn-ghost" onclick={handleReset}>
-                Reset
-            </button>
-            <button class="btn btn-primary" onclick={handlePrint}>
-                Print Record
-            </button>
-        </div>
-    {/if}
+        <!-- Loading State -->
+        {#if loading}
+            <div class="flex justify-center py-12">
+                <span class="loading loading-spinner loading-lg"></span>
+            </div>
+        {:else}
+            <!-- Semester Cards -->
+            <div class="space-y-8">
+                {#each filteredSemesters as semester (semester.id)}
+                    <SemesterCard {semester} />
+                {/each}
+            </div>
+        {/if}
+    </div>
 </div>
 
 <style>
-    /* Add print-specific styles */
     @media print {
-        .btn, input, .join {
+        .btn, input, .join, .stats {
             display: none;
         }
     }

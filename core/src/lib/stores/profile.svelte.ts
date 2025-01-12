@@ -1,20 +1,9 @@
 import {
-	User,
-	EnvelopeSimple,
-	GraduationCap,
 	Clock,
 	BookOpen,
-	CaretRight,
-	FileText,
-	Books,
-	Star,
 	Gear,
-	Blueprint,
-	Buildings,
-	Bell,
 	Calendar,
 	ListChecks,
-	Pencil
 } from 'phosphor-svelte';
 
 class CredentialStore {
@@ -137,7 +126,7 @@ class ProfileStore {
         studentId: "2021CS123",
         faculty: "Engineering",
         gpa: 3.85,
-        creditsCompleted: 90,
+        creditsCompleted: 66,
         creditsRequired: 120,
         progress: 75
     });

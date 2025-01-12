@@ -13,6 +13,7 @@
 	import { profileStore, credentialStore } from '$lib/stores/profile.svelte';
 	import StudentCard from './StudentCard.svelte';
     import StudentCredential from './StudentCredential.svelte';
+    import WeeklySchedule from './schedule/WeeklySchedule.svelte';
 
 	let quickLinks = $derived(profileStore.getQuickLinks());
 	// Get data from store using derived values
