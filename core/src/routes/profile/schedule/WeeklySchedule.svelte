@@ -4,6 +4,12 @@
     import { Clock, MapPin, User } from 'phosphor-svelte';
     import { scheduleStore, type Subject } from '$lib/stores/schedule.svelte';
 
+
+    // Add new prop for preview subject
+    let { previewSubject } = $props<{
+        previewSubject?: Subject | null;
+    }>();
+
     // Derived values using runes
     let subjects = $derived(scheduleStore.subjects);
     let days = $derived(scheduleStore.days);

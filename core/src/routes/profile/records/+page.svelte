@@ -3,11 +3,13 @@
     import { 
         ChartLine, Calculator, Printer, ArrowCounterClockwise,
         GraduationCap, MagnifyingGlass, Download,
+        Alien,
     } from 'phosphor-svelte';
     
     import SemesterCard from './SemesterCard.svelte';
     import { academicRecords } from '$lib/stores/records.svelte';
     import { profileStore } from '$lib/stores/profile.svelte';
+    import { goto } from '$app/navigation';
     
     // State management with runes
     let loading = $state(false);
@@ -126,6 +128,14 @@
                 <button class="btn btn-primary btn-sm">
                     <Download weight="duotone" class="w-4 h-4" />
                     Export
+                </button>
+                    <!-- add a new button to goto(/profile/records/progress/)  -->
+                <button 
+                    class="btn btn-secondary btn-sm"
+                    onclick={() => goto('/profile/records/progress')}
+                >
+                    <Alien weight="duotone" class="w-4 h-4" />
+                    Progress
                 </button>
             </div>
         </div>

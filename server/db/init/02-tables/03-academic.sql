@@ -19,7 +19,7 @@ CREATE TABLE academic.program (
 );
 
 COMMENT ON COLUMN academic.program.id IS 'Unique identifier for the program';
-COMMENT ON COLUMN academic.program.code IS 'Program code (e.g., MEng, CS)';
+COMMENT ON COLUMN academic.program.code IS 'Program code (e.g., ME, CS)';
 COMMENT ON COLUMN academic.program.name IS 'Full name of the program';
 COMMENT ON COLUMN academic.program.description IS 'Detailed description of the program';
 COMMENT ON COLUMN academic.program.degree_level IS 'Level of the degree or type of program';

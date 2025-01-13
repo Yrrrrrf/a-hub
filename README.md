@@ -1,21 +1,10 @@
 <h1 align="center">
-   <img src="./core/static/favicon.png" alt="A-Hub Icon" width="128">
-   <div align="center">Academic Hub</div>
+	<img src="./core/static/favicon.png" alt="A-Hub Icon" width="128">
+	<div>Academic Hub</div>
 </h1>
 
-<p align="center">
-  <a href="https://github.com/Yrrrrrf/academic-hub">
-    <img src="https://img.shields.io/badge/github-academic--hub-blue?style=for-the-badge&logo=github" alt="GitHub">
-  </a>
-  <a href="./LICENSE">
-    <img src="https://img.shields.io/badge/license-MIT-green?style=for-the-badge" alt="License">
-  </a>
-  <img src="https://img.shields.io/badge/version-0.1.0-blue?style=for-the-badge" alt="Version">
-</p>
-
-<p align="center">
-  A comprehensive Desktop + Web application for managing critical data in academic institutes.
-</p>
+<!-- [![GitHub](https://img.shields.io/badge/github-Yrrrrrf%2Fa--hub-58A6FF?style=for-the-badge&logo=github)](https://github.com/Yrrrrrf/a-hub) -->
+<!-- [![LICENSE](https://img.shields.io/badge/license-MIT-green?style=for-the-badge)](./LICENSE) -->
 
 ## Features
 
@@ -30,13 +19,13 @@
 ## Tech Stack
 
 - **Backend**:
-    - [FastAPI](https://www.python.org/) for backend development
-    - [PostgreSQL](https://www.postgresql.org/) for robust data storage
+	- [FastAPI](https://www.python.org/) for backend development
+	- [PostgreSQL](https://www.postgresql.org/) for robust data storage
 - **Frontend**:
-    - [SvelteKit](https://kit.svelte.dev/) for efficient web development
-    - [DaisyUI](https://daisyui.com/) for responsive and attractive UI components
+	- [SvelteKit](https://kit.svelte.dev/) for efficient web development
+	- [DaisyUI](https://daisyui.com/) for responsive and attractive UI components
 - **Desktop Application**:
-    - [Tauri](https://tauri.app/) for cross-platform desktop development
+	- [Tauri](https://tauri.app/) for cross-platform desktop development
 
 ## Installation
 

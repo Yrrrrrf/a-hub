@@ -167,6 +167,18 @@
         </div>
 
         <!-- Curriculum Map -->
-        <CurriculumMap {program} curriculum={{}} />
+        <CurriculumMap
+            program={{
+                // todo: DO NOT HARDCODE THIS!!!
+                // todo: DO NOT HARDCODE THIS!!!
+                // todo: DO NOT HARDCODE THIS!!!
+                // todo: DO NOT HARDCODE THIS!!!
+                // todo: DO NOT HARDCODE THIS!!!
+                // todo: DO NOT HARDCODE THIS!!!
+                name: "Computer Engineering",
+                description: "A comprehensive program in computer engineering..."
+            }}
+        />
+
     </div>
 </div>

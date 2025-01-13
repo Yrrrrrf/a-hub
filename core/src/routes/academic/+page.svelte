@@ -7,6 +7,7 @@
     } from 'phosphor-svelte';
     import { academicStore } from '$lib/stores/academic.svelte';
     import ProgramCard from './ProgramCard.svelte';
+    import { goto } from '$app/navigation';
 
     // Get data from store using derived values
     let programs = $derived(academicStore.programs);
@@ -216,7 +217,10 @@
                 </p>
                 <div class="flex gap-4 justify-center">
                     <button class="btn btn-primary btn-lg">Apply Now</button>
-                    <button class="btn btn-outline btn-lg">Contact Us</button>
+                    <button 
+                        class="btn btn-outline btn-lg"
+                        onclick={() => goto('/contact')}    
+                    >Contact Us</button>
                 </div>
             </div>
         </div>

@@ -2,18 +2,17 @@
 <script lang="ts">
     import '../app.css';
     let { children } = $props();
-
     import { onMount } from 'svelte';
-    import { appData, apiStore, Kyntharil, } from 'rune-lab';
+    import { appData, forge, apiStore, Kyntharil, gen_types, Altharun } from 'rune-lab';
     // import {  UIShowcase, databaseStore, } from 'rune-lab';
     import { Footer, UrlDisplay, NavBar } from 'rune-lab';
-
+    
     import { initFooter } from '$lib/stores/footer.svelte';
 	// import { requestsStore } from '$lib/stores/requests.svelte';
-
+    
     initFooter();  // Initialize footer data
 
-
+    
     onMount(() => {  // Initialize main app data
         // requestsStore.getRequestTypes(); // No need to call other get methods, they are just getters.
 
@@ -52,7 +51,16 @@
 <!-- <UIShowcase /> -->
 
 <NavBar />
+
+
+<!-- From the rune of change... -->
 <Kyntharil />
+
+
+<!-- From the rune of knowledge... -->
+<!-- <Altharun /> -->
+
+
 <div class="min-h-screen flex flex-col">
     <main class="flex-grow">
         {@render children()}
