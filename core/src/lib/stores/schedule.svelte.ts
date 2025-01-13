@@ -76,6 +76,7 @@ class ScheduleStore {
     ]);
 
     // Week settings
+    // readonly days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
     readonly days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
     readonly hours = Array.from({ length: 9 }, (_, i) => i + 8); // 8 AM to 4 PM
 

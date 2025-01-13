@@ -118,29 +118,34 @@ class AboutStore {
     // Historical milestones
     milestones = $state<Milestone[]>([
         {
-            year: "1965",
-            title: "Foundation",
-            description: "Establishment of the main campus"
+            year: "1828",
+            title: "Fundación del Instituto Literario",
+            description: "Se funda el Instituto Literario del Estado de México, antecedente directo de la UAEMex."
         },
         {
-            year: "1985",
-            title: "Research Excellence",
-            description: "Opening of advanced research centers"
+            year: "1943",
+            title: "Autonomía Universitaria",
+            description: "Se otorga la autonomía a la institución, convirtiéndose en la Universidad Autónoma del Estado de México."
         },
         {
-            year: "2000",
-            title: "Global Expansion",
-            description: "Launch of international programs"
+            year: "1956",
+            title: "Inauguración del Edificio Central",
+            description: "Se inaugura el emblemático Edificio Central de la UAEMex en Toluca, un ícono arquitectónico."
         },
         {
-            year: "2015",
-            title: "Innovation Hub",
-            description: "Creation of technology innovation center"
+            year: "1964",
+            title: "Creación de la Ciudad Universitaria",
+            description: "Se inicia la construcción de la Ciudad Universitaria en Toluca, concentrando diversas facultades y escuelas."
         },
         {
-            year: "2024",
-            title: "Digital Transformation",
-            description: "Implementation of smart campus initiative"
+            year: "1980s-1990s", //Podemos ser mas especificos si necesitas un año en concreto
+            title: "Expansión de la Oferta Educativa",
+            description: "Se crean nuevas facultades y se amplían los programas de posgrado, diversificando la oferta académica."
+        },
+        {
+            year: "2000s-Actualidad", //Podemos ser mas especificos si necesitas un año en concreto
+            title: "Consolidación y Modernización",
+            description: "Se fortalece la investigación, la vinculación con el sector productivo y la internacionalización de la UAEMex."
         }
     ]);
 

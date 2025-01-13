@@ -91,7 +91,7 @@
                     <div class="flex items-center gap-3">
                         <User class="text-primary w-5 h-5" />
                         <div>
-                            <div class="font-medium">{profile.full_name}</div>
+                            <div class="font-medium">{profile?.fullName}</div>
                             <div class="text-sm opacity-70">{academic.studentId}</div>
                         </div>
                     </div>

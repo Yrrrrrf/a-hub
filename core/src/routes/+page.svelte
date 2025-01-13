@@ -8,21 +8,14 @@
       Student,
       Chalkboard,
       Buildings,
-      EnvelopeSimple,
-      Phone,
-
-      CheckCircle,
-
-      ArrowRight,
-
-      Calendar
-
-
-
   } from 'phosphor-svelte';
   
   import { infrastructureStore } from '$lib/stores/infrastructure.svelte';
-  import { academicStatsStore } from '$lib/stores/academic-stats.svelte';
+  import { academicStatsStore } from '$lib/stores/academic.svelte';
+
+  import { aboutStore } from '$lib/stores/about.svelte';
+  let milestones = $derived(aboutStore.milestones);
+
 
   // Academic features showcase using runes
   let academicFeatures = $state([
@@ -43,32 +36,7 @@
       }
   ]);
 
-  // Core modules with runes
-  let coreModules = $state([
-      { 
-          title: 'Academic Programs', 
-          description: 'Diverse range of undergraduate and graduate programs',
-          icon: GraduationCap
-      },
-      { 
-          title: 'Research Centers', 
-          description: 'Advanced research facilities and opportunities',
-          icon: Books
-      },
-      { 
-          title: 'Student Services', 
-          description: 'Comprehensive support for student success',
-          icon: Users
-      },
-      { 
-          title: 'Campus Life', 
-          description: 'Rich cultural and educational experiences',
-          icon: Buildings
-      }
-  ]);
-
   // Get main campus information
-  let mainCampus = $derived(infrastructureStore.getMainCampus);
   let stats = $derived(academicStatsStore.getStats());
 </script>
 
@@ -136,6 +104,45 @@
           </div>
       </div>
   </section>
+
+  <section class="py-20 bg-base-100">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold mb-4 text-primary">Our Journey</h2>
+            <p class="text-xl opacity-80 max-w-2xl mx-auto text-base-content">
+                A legacy of excellence and innovation spanning over decades.
+            </p>
+        </div>
+
+        <div class="max-w-5xl mx-auto">
+            <div class="relative">
+                <div class="absolute w-1 bg-primary left-1/2 -ml-0.5 h-full z-10"></div>
+                <ul class="list-none m-0 p-0">
+                    {#each milestones as milestone, i}
+                        <li class="mb-12 relative">
+                            <div class="flex items-start">
+                                <div class="w-1/2 pr-8 text-right">
+                                    <div class="bg-base-200 p-6 rounded-lg shadow-lg">
+                                        <div class="font-bold text-primary text-xl mb-2">
+                                            {milestone.year}
+                                        </div>
+                                        <div class="font-bold mb-1 text-lg">{milestone.title}</div>
+                                        <div class="text-sm opacity-80 text-base-content">{milestone.description}</div>
+                                    </div>
+                                </div>
+                                <div class="absolute left-1/2 -ml-3 top-1/4 z-20">
+                                    <div class="rounded-full bg-primary w-6 h-6 flex items-center justify-center text-white font-bold">{i + 1}</div>
+                                </div>
+                                <div class="w-1/2 pl-8"></div>
+                            </div>
+                        </li>
+                    {/each}
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
 
 <!-- Quick Links Section -->
 <!-- <section class="py-16 -mt-20 relative z-20 container mx-auto px-4">

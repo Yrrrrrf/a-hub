@@ -1,3 +1,10 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
-@import 'tailwindcss/utilities'
+@import 'tailwindcss/utilities';
+
+/* In app.css or similar */
+@media (prefers-color-scheme: dark) {
+    :root[data-theme] {
+        color-scheme: unset !important;
+    }
+}

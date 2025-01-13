@@ -4,7 +4,7 @@ import typography from '@tailwindcss/typography';
 import type { Config } from 'tailwindcss';
 import daisyui from 'daisyui';
 
-import { staticThemes } from 'rune-lab/themes';
+import { availableThemes } from 'rune-lab/themes';
 
 export default {
   content: ['./src/**/*.{html,js,svelte,ts}',
@@ -25,11 +25,15 @@ export default {
   ],
 
   daisyui: {
-    themes: [...staticThemes],
-    styled: true,  // component styling
-    utils: true,  // util classes (bg-red-100, text-center, etc)
-    logs: true,  // log info to console
-    base: true,  // base components (button, input, etc)
-    prefix: '',  // set a prefix for all daisyUI classes
+    themes: [...availableThemes],
+    themeRoot: "html",
+    styled: true,
+    utils: true,
+    base: true,
+    prefix: "",
+    logs: true,
+    darkTheme: null,
+    respectSelectedTheme: false,  // Respect the theme selected by the user
+    // rtl: false,  // Whether to add RTL support (Right to Left)
   }
 } satisfies Config;

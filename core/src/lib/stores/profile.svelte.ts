@@ -1,11 +1,3 @@
-import {
-	Clock,
-	BookOpen,
-	Gear,
-	Calendar,
-	ListChecks,
-} from 'phosphor-svelte';
-
 class CredentialStore {
     isVisible = $state(false);
 
@@ -16,48 +8,6 @@ class CredentialStore {
 }
 
 export const credentialStore = new CredentialStore();
-
-// src/lib/stores/profile.svelte.ts
-export interface UserProfile {
-    id: string;
-    username: string;
-    email: string;
-    full_name: string;
-    status: 'active' | 'inactive' | 'suspended';
-    created_at: string;
-    updated_at: string;
-}
-
-export interface UserPreferences {
-    user_id: string;
-    theme: string;
-    language: string;
-    notifications: {
-        email: boolean;
-        push: boolean;
-    };
-    settings: Record<string, any>;
-    updated_at: string;
-}
-
-export interface UserRole {
-    id: string;
-    name: string;
-    description: string;
-    permissions: Record<string, any>;
-    created_at: string;
-}
-
-export interface AcademicInfo {
-    program: string;
-    semester: number;
-    studentId: string;
-    faculty: string;
-    gpa: number;
-    creditsCompleted: number;
-    creditsRequired: number;
-    progress: number;
-}
 
 export interface Course {
     code: string;
@@ -88,37 +38,9 @@ export interface Deadline {
     dueDate: string;
 }
 
-export interface QuickLink {
-	icon: any; // Use a more specific type if possible, like a Phosphor icon type
-	text: string;
-	href: string;
-}
 
-class ProfileStore {
-    // Basic profile information
-    profile = $state<UserProfile>({
-        id: crypto.randomUUID(),
-        username: "alexander.t",
-        email: "alexander.t@academichub.edu",
-        full_name: "Alexander Thompson",
-        status: "active",
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString()
-    });
 
-    // User preferences
-    preferences = $state<UserPreferences>({
-        user_id: this.profile.id,
-        theme: "dracula",
-        language: "en",
-        notifications: {
-            email: true,
-            push: true
-        },
-        settings: {},
-        updated_at: new Date().toISOString()
-    });
-
+class PS {
     // Academic information
     academicInfo = $state<AcademicInfo>({
         program: "Computer Science",
@@ -128,8 +50,15 @@ class ProfileStore {
         gpa: 3.85,
         creditsCompleted: 66,
         creditsRequired: 120,
-        progress: 75
     });
+
+    fullProgress = $derived(
+        (this.academicInfo.creditsCompleted / this.academicInfo.creditsRequired) * 100
+    );
+
+    updateAcademicInfo(newInfo: Partial<AcademicInfo>) {
+        this.academicInfo = { ...this.academicInfo, ...newInfo };
+    }
 
     // Current courses
     currentCourses = $state<Course[]>([
@@ -212,66 +141,6 @@ class ProfileStore {
         }
     ]);
 
-    // Quick Links
-    quickLinks = $state<QuickLink[]>([
-        {
-            icon: BookOpen,
-            text: 'Academic Records',
-            href: '/profile/records'
-        },
-        {
-            icon: Calendar,
-            text: 'Course Registration',
-            href: '/profile/course-registration' // Replace with your actual route
-        },
-        {
-            icon: Clock,
-            text: 'Schedule',
-            href: '/profile/schedule' // Replace with your actual route
-        },
-        {
-            icon: ListChecks,
-            text: 'Requests',
-            href: '/profile/requests'
-        },
-        {
-            icon: Gear,
-            text: 'Settings',
-            href: '/profile/settings'
-        },
-        // {
-        //     icon: Pencil,
-        //     text: 'Edit Profile',
-        //     href: '/profile/edit'
-        // }
-    ]);
-
-    // Computed properties
-    avatarUrl = $derived(
-        `https://api.dicebear.com/7.x/avataaars/svg?seed=${this.profile.username}`
-    );
-
-    fullProgress = $derived(
-        (this.academicInfo.creditsCompleted / this.academicInfo.creditsRequired) * 100
-    );
-
-    // Methods
-    updateProfile(newProfile: Partial<UserProfile>) {
-        this.profile = { ...this.profile, ...newProfile, updated_at: new Date().toISOString() };
-    }
-
-    updatePreferences(newPreferences: Partial<UserPreferences>) {
-        this.preferences = { 
-            ...this.preferences, 
-            ...newPreferences, 
-            updated_at: new Date().toISOString() 
-        };
-    }
-
-    updateAcademicInfo(newInfo: Partial<AcademicInfo>) {
-        this.academicInfo = { ...this.academicInfo, ...newInfo };
-    }
-
     addActivity(activity: Activity) {
         this.recentActivities = [activity, ...this.recentActivities];
     }
@@ -279,9 +148,99 @@ class ProfileStore {
     addDeadline(deadline: Deadline) {
         this.upcomingDeadlines = [...this.upcomingDeadlines, deadline];
     }
+}
 
-    // Add a method to get the quickLinks
-	getQuickLinks = () => this.quickLinks;
+export const okl = new PS();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// src/lib/stores/profile.store.ts
+import { authStore, type UserProfile } from 'rune-lab';
+import { forge, apiStore } from 'rune-lab';
+import { BaseClient, createCrudOperations } from 'ts-forge';
+
+
+// Basic academic info type
+interface AcademicInfo {
+    program: string;
+    faculty: string;
+    studentId: string;
+    semester: number;
+    gpa: number;
+    creditsCompleted: number;
+    creditsRequired: number;
+}
+
+class ProfileStore {
+    isLoading = $state(true);
+    error = $state<string | null>(null);
+
+    // Use the existing profile from authStore
+    profile = $derived(authStore.profile);
+
+    // Basic academic info (temporary)
+    academicInfo = $state<AcademicInfo>({
+        program: "Computer Engineering",
+        faculty: "Engineering",
+        studentId: "2021CS123",
+        semester: 6,
+        gpa: 3.85,
+        creditsCompleted: 128,
+        creditsRequired: 255
+    });
+
+    // Simple avatar URL derivation
+    avatarUrl = $derived(
+        this.profile ? 
+        `https://api.dicebear.com/7.x/avataaars/svg?seed=${this.profile.username}` : 
+        ''
+    );
+
+    async fetchProfile() {
+        try {
+        this.isLoading = true;
+        this.error = null;
+
+        const baseClient = new BaseClient(apiStore.getConfig().URL);
+        const t_metadata = forge.getTable('account', 'profile');
+        
+        if (!t_metadata) {
+            throw new Error('Profile table metadata not found');
+        }
+
+        const crudOps = createCrudOperations<UserProfile>(baseClient, t_metadata);
+        
+        const userId = authStore.getUserId();
+        if (!userId) {throw new Error('No authenticated user');}
+
+        const profile = await crudOps.findOne(userId);
+        console.log('Fetched profile:', profile);
+
+        if (profile) {
+            authStore.setProfile({ ...profile, ...authStore.profile });
+        }
+        console.log('Profile:', authStore.profile);
+
+        } catch (e) {this.error = e instanceof Error ? e.message : 'Failed to load profile';
+        } finally {this.isLoading = false;}
+    }
 }
 
 export const profileStore = new ProfileStore();

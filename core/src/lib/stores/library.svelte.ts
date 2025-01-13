@@ -5,11 +5,7 @@ import {
 	Archive,
 	GraduationCap,
 	MagnifyingGlass,
-	BookmarkSimple,
-	Star,
-	TrendUp,
-	MapPin,
-	UserCircle
+	BookmarkSimple
 } from 'phosphor-svelte';
 
 // Interfaces

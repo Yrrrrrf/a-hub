@@ -16,7 +16,7 @@
     }
 </script>
 
-<svelte:window onkeydown={handleKeydown}/>
+<svelte:window on:keydown={handleKeydown}/>
 
 <div 
     class="modal modal-open"
@@ -38,18 +38,18 @@
         class="modal-box bg-base-100 max-w-2xl"
         role="document"
     >
-        <!-- Student Credential Content -->
+        {#if profile}
         <div class="p-4">
             <!-- Avatar and Name Section -->
             <div class="flex items-center gap-6 mb-8">
                 <div class="avatar">
                     <div class="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                        <img src={avatarUrl} alt={profile.full_name} />
+                        <img src={avatarUrl} alt={profile.fullName} />
                     </div>
                 </div>
 
                 <div>
-                    <h2 id="credential-title" class="text-2xl font-bold">{profile.full_name}</h2>
+                    <h2 id="credential-title" class="text-2xl font-bold">{profile.fullName}</h2>
                     <div class="flex items-center gap-2 text-primary">
                         <GraduationCap weight="duotone" class="w-5 h-5" />
                         <span class="font-semibold">{academic.program}</span>
@@ -80,7 +80,7 @@
                     </div>
                     <div class="flex items-center gap-3">
                         <Clock weight="duotone" class="text-primary w-5 h-5" />
-                        <span>Member since {new Date(profile.created_at).getFullYear()}</span>
+                        <span>Member since {new Date(profile.createdAt).getFullYear()}</span>
                     </div>
                 </div>
             </div>
@@ -110,5 +110,6 @@
                 </div>
             </div>
         </div>
+        {/if}
     </div>
 </div>

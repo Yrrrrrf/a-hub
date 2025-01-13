@@ -8,7 +8,6 @@
     import { profileStore } from '$lib/stores/profile.svelte';
 
     // Get profile data
-    let profile = $derived(profileStore.profile);
     let academic = $derived(profileStore.academicInfo);
 
     // Sample curriculum data (to be replaced with store)

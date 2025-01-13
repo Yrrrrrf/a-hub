@@ -12,7 +12,6 @@
     // Get data from store using derived values
     let quickStats = $derived(aboutStore.quickStats);
     let faculties = $derived(aboutStore.faculties);
-    let milestones = $derived(aboutStore.milestones);
     let activities = $derived(aboutStore.recentActivities);
 
     // Additional derived values
@@ -57,40 +56,8 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {#each faculties as faculty (faculty.id)}
-                <FacultyCard {faculty} showDetails />
+                <FacultyCard {faculty} />
             {/each}
-        </div>
-    </section>
-
-    <!-- Timeline Section -->
-    <section class="py-20 bg-base-100">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold mb-4">Our Journey</h2>
-                <p class="text-xl opacity-80 max-w-2xl mx-auto">
-                    A legacy of excellence and innovation spanning over decades.
-                </p>
-            </div>
-
-            <div class="max-w-4xl mx-auto">
-                <ul class="timeline timeline-vertical">
-                    {#each milestones as milestone, i}
-                        <li>
-                            <div class="timeline-start timeline-box bg-base-200">
-                                <div class="font-bold text-primary text-xl mb-2">
-                                    {milestone.year}
-                                </div>
-                                <div class="font-bold mb-1">{milestone.title}</div>
-                                <div class="text-sm opacity-80">{milestone.description}</div>
-                            </div>
-                            <div class="timeline-middle">
-                                <div class="badge badge-primary badge-lg">{i + 1}</div>
-                            </div>
-                            <hr/>
-                        </li>
-                    {/each}
-                </ul>
-            </div>
         </div>
     </section>
 

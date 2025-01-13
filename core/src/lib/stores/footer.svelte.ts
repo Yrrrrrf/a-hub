@@ -7,19 +7,19 @@ export function initFooter() {
                 {
                     title: "Product",
                     links: [
-                        { text: "Features", href: "/features" },  // Internal route
+                        // { text: "Features", href: "/features" },  // Internal route
                         { text: "API Docs", href: "http://localhost:8000/docs" },  // External link
                         { text: "OpenAPI", href: "http://localhost:8000/openapi.json" },  // External link
-                        { text: "Pricing", href: "/pricing" }  // Internal route
+                        // { text: "Pricing", href: "/pricing" }  // Internal route
                     ]
                 },
                 {
                     title: "Company",
                     links: [
                         { text: "About", href: "/about" },
-                        { text: "Blog", href: "/blog" },
-                        { text: "Careers", href: "/careers" },
-                        { text: "Contact", href: "/contact" }
+                        { text: "Careers", href: "/academic" },
+                        { text: "Contact", href: "/contact" },
+                        { text: "Blog", href: "/news" },
                     ]
                 },
                 {

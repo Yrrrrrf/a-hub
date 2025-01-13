@@ -1,28 +1,55 @@
 <!-- src/routes/profile/+page.svelte -->
 <script lang="ts">
-	import { 
-		Calendar,
-		Clock,
-		BookOpen,
-		CaretRight,
-		FileText,
-		Books,
-		Star
-	} from 'phosphor-svelte';
-	
-	import { profileStore, credentialStore } from '$lib/stores/profile.svelte';
+	import { Calendar, Clock, BookOpen, CaretRight, FileText, Books, Star, ListChecks, Gear } from 'phosphor-svelte';
+
+	import { okl, credentialStore } from '$lib/stores/profile.svelte';
 	import StudentCard from './StudentCard.svelte';
     import StudentCredential from './StudentCredential.svelte';
-    import WeeklySchedule from './schedule/WeeklySchedule.svelte';
 
-	let quickLinks = $derived(profileStore.getQuickLinks());
 	// Get data from store using derived values
-	let courses = $derived(profileStore.currentCourses);
-	let activities = $derived(profileStore.recentActivities);
-	let library = $derived(profileStore.libraryItems);
-	let deadlines = $derived(profileStore.upcomingDeadlines);
+	let courses = $derived(okl.currentCourses);
+	let activities = $derived(okl.recentActivities);
+	let library = $derived(okl.libraryItems);
+	let deadlines = $derived(okl.upcomingDeadlines);
 
 	let isCredentialVisible = $derived(credentialStore.isVisible);
+
+    // Quick Links
+	interface QuickLink {
+		icon: any; // Use a more specific type if possible, like a Phosphor icon type
+		text: string;
+		href: string;
+	}
+
+    let quickLinks = $state<QuickLink[]>([
+        {
+            icon: BookOpen,
+            text: 'Academic Records',
+            href: '/profile/records'
+        },
+        {
+            icon: Calendar,
+            text: 'Course Registration',
+            href: '/profile/course-registration' // Replace with your actual route
+        },
+        {
+            icon: Clock,
+            text: 'Schedule',
+            href: '/profile/schedule' // Replace with your actual route
+        },
+        {
+            icon: ListChecks,
+            text: 'Requests',
+            href: '/profile/requests'
+        },
+        {
+            icon: Gear,
+            text: 'Settings',
+            href: '/profile/settings'
+        },
+    ]);
+
+
 </script>
 
 <!-- Student Credential Modal -->
