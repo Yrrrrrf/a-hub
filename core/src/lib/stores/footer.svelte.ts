@@ -7,9 +7,9 @@ export function initFooter() {
                 {
                     title: "Product",
                     links: [
-                        // { text: "Features", href: "/features" },  // Internal route
                         { text: "API Docs", href: "http://localhost:8000/docs" },  // External link
                         { text: "OpenAPI", href: "http://localhost:8000/openapi.json" },  // External link
+                        // { text: "Features", href: "/features" },  // Internal route
                         // { text: "Pricing", href: "/pricing" }  // Internal route
                     ]
                 },
@@ -27,7 +27,7 @@ export function initFooter() {
                     links: [
                         { text: "Community", href: "/community" },
                         { text: "Help Center", href: "/help" },
-                        { text: "Status", href: "/status" },
+                        { text: "Status", href: "/profile/manage" },
                         { text: "Terms", href: "/terms" }
                     ]
                 }

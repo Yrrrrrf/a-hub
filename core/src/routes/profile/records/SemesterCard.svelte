@@ -2,19 +2,28 @@
 <script lang="ts">
     import { Calendar, Sigma, Trophy } from 'phosphor-svelte';
     import type { Semester } from '$lib/stores/records.svelte';
+    import type { Subject } from '$lib/stores/schedule.svelte';
 
     // Props using runes
     let { semester } = $props<{
         semester: Semester;
     }>();
 
+    // Helper function for credits (since they're not in Subject interface)
+    function getSubjectCredits(subject: Subject): number {
+        return subject.duration; // Using duration as credits for now
+    }
+
     // Computed values
     let totalCredits = $derived(
-        semester.courses.reduce((
-            sum: number, 
-            course: { credits: number }
-        ) => sum + course.credits, 0)
+        semester.subjects.reduce((sum: number, subject: Subject) => sum + getSubjectCredits(subject), 0)
     );
+
+    // Mock grades based on semester progression
+    function getGrade(subject: Subject): string {
+        const grades = ['A', 'A-', 'B+', 'B', 'B-'];
+        return grades[Math.floor(Math.random() * 3)]; // Just for demo
+    }
 
     function getGradeColor(grade: string): string {
         switch (grade) {
@@ -40,7 +49,7 @@
             <div class="flex items-center gap-4">
                 <div class="flex items-center gap-2">
                     <Sigma weight="duotone" class="w-5 h-5 text-primary" />
-                    <span class="text-sm opacity-70">Credits: {totalCredits}</span>
+                    <span class="text-sm opacity-70">Hours: {totalCredits}</span>
                 </div>
                 <div class="flex items-center gap-2">
                     <Trophy weight="duotone" class="w-5 h-5 text-primary" />
@@ -49,26 +58,33 @@
             </div>
         </div>
 
-        <!-- Courses Table -->
+        <!-- Subjects Table -->
         <div class="overflow-x-auto">
             <table class="table w-full">
                 <thead>
                     <tr>
                         <th>Code</th>
-                        <th>Course</th>
-                        <th class="text-center">Credits</th>
+                        <th>Subject</th>
+                        <th>Professor</th>
+                        <th class="text-center">Hours</th>
                         <th class="text-center">Grade</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {#each semester.courses as course}
+                    {#each semester.subjects as subject}
                         <tr class="hover">
-                            <td class="font-mono">{course.code}</td>
-                            <td>{course.name}</td>
-                            <td class="text-center">{course.credits}</td>
+                            <td class="font-mono">{subject.id}</td>
+                            <td>
+                                <div class="flex items-center gap-2">
+                                    <subject.icon weight="duotone" class="w-4 h-4" style="color: {subject.color}" />
+                                    <span>{subject.name}</span>
+                                </div>
+                            </td>
+                            <td>{subject.professor || 'TBD'}</td>
+                            <td class="text-center">{subject.duration}</td>
                             <td class="text-center">
-                                <span class="badge {getGradeColor(course.grade)}">
-                                    {course.grade}
+                                <span class="badge {getGradeColor(getGrade(subject))}">
+                                    {getGrade(subject)}
                                 </span>
                             </td>
                         </tr>
@@ -79,9 +95,9 @@
 
         <!-- Summary -->
         <div class="mt-4 flex flex-wrap justify-end gap-4 text-sm opacity-70">
-            <span>Total Courses: {semester.courses.length}</span>
+            <span>Total Subjects: {semester.subjects.length}</span>
             <span>|</span>
-            <span>Total Credits: {totalCredits}</span>
+            <span>Total Hours: {totalCredits}</span>
             <span>|</span>
             <span>GPA: {semester.gpa}</span>
         </div>

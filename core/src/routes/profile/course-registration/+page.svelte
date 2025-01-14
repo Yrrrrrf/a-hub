@@ -1,7 +1,6 @@
 <script lang="ts">
-    import WeeklySchedule from "../schedule/WeeklySchedule.svelte";
-    import { scheduleStore } from '$lib/stores/schedule.svelte';
-    import type { Subject } from '$lib/stores/schedule.svelte';
+    import WeeklySchedule from "../../../lib/components/WeeklySchedule.svelte";
+    import { scheduleStore, type Subject } from '$lib/stores/schedule.svelte';
 
     import { Database, Network, Robot, Cpu } from 'phosphor-svelte';
 
@@ -75,7 +74,6 @@
             )
         );
     }
-
 
     // Local state using runes
     let error = $state<string | null>(null);

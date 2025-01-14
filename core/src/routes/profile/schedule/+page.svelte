@@ -6,9 +6,9 @@
         User, Buildings
     } from 'phosphor-svelte';
     
-    import WeeklySchedule from './WeeklySchedule.svelte';
     import { scheduleStore } from '$lib/stores/schedule.svelte';
     import { profileStore } from '$lib/stores/profile.svelte';
+    import WeeklySchedule from '$lib/components/WeeklySchedule.svelte';
 
     // Get derived values
     let subjects = $derived(scheduleStore.subjects);
@@ -27,6 +27,11 @@
     let uniqueRooms = $derived(
         new Set(subjects.map(s => s.room)).size
     );
+
+    // Handle print schedule
+    function handlePrintSchedule() {
+        window.print();
+    }
 </script>
 
 <div class="min-h-screen space-y-8">
@@ -113,19 +118,22 @@
             </div>
         </div>
 
-        <!-- Weekly Schedule -->
-        <WeeklySchedule />
+            <!-- Weekly Schedule -->
+        <!-- Main Content -->
+        <div class="container mx-auto px-4 space-y-8">
 
-        <!-- Schedule Actions -->
-        <div class="flex justify-end gap-4">
-            <button class="btn btn-ghost">
-                <Download weight="duotone" class="w-5 h-5" />
-                Export Schedule
-            </button>
-            <button class="btn btn-primary">
-                <CalendarPlus weight="duotone" class="w-5 h-5" />
-                Add to Calendar
-            </button>
+            <!-- Weekly Schedule -->
+            <div id="schedule-section">
+                <WeeklySchedule />
+            </div>
+
+            <!-- Schedule Actions -->
+            <div class="flex justify-end gap-4">
+                <button class="btn btn-primary" onclick={handlePrintSchedule}>
+                    <Download weight="duotone" class="w-5 h-5" />
+                    Export Schedule
+                </button>
+            </div>
         </div>
     </div>
 </div>

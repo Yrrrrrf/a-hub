@@ -3,12 +3,7 @@
     import { fade } from 'svelte/transition';
     import { Clock, MapPin, User } from 'phosphor-svelte';
     import { scheduleStore, type Subject } from '$lib/stores/schedule.svelte';
-
-
-    // Add new prop for preview subject
-    let { previewSubject } = $props<{
-        previewSubject?: Subject | null;
-    }>();
+    import SubjectModal from '$lib/components/SubjectModal.svelte';
 
     // Derived values using runes
     let subjects = $derived(scheduleStore.subjects);
@@ -129,50 +124,11 @@
 
 <!-- Selected Subject Modal -->
 {#if selectedSubject}
-    <div class="modal modal-open">
-        <div class="modal-box">
-            <h3 class="font-bold text-lg flex items-center gap-2">
-                <selectedSubject.icon weight="duotone" class="text-primary" />
-                {selectedSubject.name}
-            </h3>
-            <div class="py-4 space-y-4">
-                <div class="flex items-center gap-3">
-                    <Clock class="text-primary w-5 h-5" />
-                    <div>
-                        <div class="font-medium">{days[selectedSubject.day - 1]}</div>
-                        <div class="text-sm opacity-70">
-                            {getTimeString(selectedSubject.startHour)} - 
-                            {getTimeString(selectedSubject.startHour + selectedSubject.duration)}
-                        </div>
-                    </div>
-                </div>
-                {#if selectedSubject.room}
-                    <div class="flex items-center gap-3">
-                        <MapPin class="text-primary w-5 h-5" />
-                        <div>
-                            <div class="font-medium">Location</div>
-                            <div class="text-sm opacity-70">Room {selectedSubject.room}</div>
-                        </div>
-                    </div>
-                {/if}
-                {#if selectedSubject.professor}
-                    <div class="flex items-center gap-3">
-                        <User class="text-primary w-5 h-5" />
-                        <div>
-                            <div class="font-medium">Professor</div>
-                            <div class="text-sm opacity-70">{selectedSubject.professor}</div>
-                        </div>
-                    </div>
-                {/if}
-            </div>
-            <div class="modal-action">
-                <button class="btn" onclick={() => selectedSubject = null}>Close</button>
-            </div>
-        </div>
-        <button class="modal-backdrop" onclick={() => selectedSubject = null}>
-            <span class="sr-only">Close</span>
-        </button>
-    </div>
+    <SubjectModal 
+        subject={selectedSubject}
+        days={days}
+        onClose={() => selectedSubject = null}
+    />
 {/if}
 
 <style>

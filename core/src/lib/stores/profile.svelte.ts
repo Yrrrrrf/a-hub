@@ -9,14 +9,6 @@ class CredentialStore {
 
 export const credentialStore = new CredentialStore();
 
-export interface Course {
-    code: string;
-    name: string;
-    professor: string;
-    schedule: string;
-    room: string;
-    grade?: string;
-}
 
 export interface Activity {
     type: 'submission' | 'attendance' | 'library';
@@ -60,33 +52,6 @@ class PS {
         this.academicInfo = { ...this.academicInfo, ...newInfo };
     }
 
-    // Current courses
-    currentCourses = $state<Course[]>([
-        {
-            code: "CS301",
-            name: "Database Systems",
-            professor: "Dr. Sarah Wilson",
-            schedule: "Mon/Wed 10:00-11:30",
-            room: "Tech-201",
-            grade: "A"
-        },
-        {
-            code: "CS302",
-            name: "Software Engineering",
-            professor: "Dr. Michael Brown",
-            schedule: "Tue/Thu 14:00-15:30",
-            room: "Tech-305",
-            grade: "A-"
-        },
-        {
-            code: "CS303",
-            name: "Computer Networks",
-            professor: "Dr. James Lee",
-            schedule: "Wed/Fri 13:00-14:30",
-            room: "Tech-405",
-            grade: "B+"
-        }
-    ]);
 
     // Recent activities
     recentActivities = $state<Activity[]>([

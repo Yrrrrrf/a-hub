@@ -1,8 +1,13 @@
 // src/lib/stores/schedule.svelte.ts
 import { 
-    Calculator, Code, Book, Atom, ChalkboardTeacher 
+    Calculator, Code, Book, Atom, ChalkboardTeacher, 
+    Terminal,
+    Database,
+    Network,
+    WaveSine
 } from 'phosphor-svelte';
 
+// Updated Subject interface with pdfLink
 export interface Subject {
     id: string;
     name: string;
@@ -13,65 +18,84 @@ export interface Subject {
     icon: any; // PhosphorIcon type
     professor?: string;
     room?: string;
+    pdfLink?: string;  // New field for PDF links
 }
 
+// Updated ScheduleStore
 class ScheduleStore {
     // Core state using runes
     subjects = $state<Subject[]>([
         {
-            id: 'calc-1',
-            name: 'Calculus I',
+            id: 'sistemas-analogicos',
+            name: 'Sistemas Analógicos',
             day: 1, // Monday
             startHour: 9,
             duration: 2,
             color: 'hsl(217, 91%, 60%)', // Blue
-            icon: Calculator,
-            professor: 'Dr. Smith',
-            room: 'M101'
+            icon: WaveSine, // Using appropriate icon for analog systems
+            professor: 'Dr. Martínez',
+            room: 'LAB-201',
+            pdfLink: 'https://fi.uaemex.mx/portal/docs/coordinaciones/ICO/planF19/Periodo_6/6to_PE_ICO_SISTEMAS_ANALOGICOS.pdf'
         },
         {
-            id: 'prog-intro',
-            name: 'Introduction to Programming',
+            id: 'protocolos-comunicacion',
+            name: 'Protocolos de Comunicación de Datos',
             day: 2, // Tuesday
             startHour: 11,
             duration: 2,
             color: 'hsl(142, 71%, 45%)', // Green
-            icon: Code,
-            professor: 'Dr. Johnson',
-            room: 'CS202'
+            icon: Network,
+            professor: 'Dr. García',
+            room: 'RED-301',
+            pdfLink: 'https://fi.uaemex.mx/portal/docs/coordinaciones/ICO/planF19/Periodo_6/6to_PE_ICO_PROTOCOLOS_DE_COMUNICACION_DE_DATOS.pdf'
         },
         {
-            id: 'phys-1',
-            name: 'Physics I',
-            day: 4, // Thursday
-            startHour: 10,
-            duration: 2,
-            color: 'hsl(4, 90%, 58%)', // Red
-            icon: Atom,
-            professor: 'Dr. Brown',
-            room: 'P303'
-        },
-        {
-            id: 'eng-comp',
-            name: 'English Composition',
+            id: 'admin-recursos',
+            name: 'Administración de Recursos Informáticos',
             day: 3, // Wednesday
             startHour: 14,
             duration: 2,
             color: 'hsl(35, 100%, 50%)', // Orange
-            icon: Book,
-            professor: 'Dr. Wilson',
-            room: 'E101'
+            icon: Database,
+            professor: 'Dra. Rodríguez',
+            room: 'ADM-102',
+            pdfLink: 'https://fi.uaemex.mx/portal/docs/coordinaciones/ICO/planF19/Periodo_6/6to_PE_ICO_ADMINISTRACION_DE_RECURSOS_INFORMATICOS.pdf'
         },
         {
-            id: 'data-struct',
-            name: 'Data Structures',
-            day: 5, // Friday
+            id: 'ingenieria-software',
+            name: 'Ingeniería de Software II',
+            day: 4, // Thursday
+            startHour: 10,
+            duration: 2,
+            color: 'hsl(4, 90%, 58%)', // Red
+            icon: Code,
+            professor: 'Dr. López',
+            room: 'SW-401',
+            pdfLink: 'https://fi.uaemex.mx/portal/docs/coordinaciones/ICO/planF19/Periodo_6/6to_PE_ICO_INGENIERIA_DE_SOFTWARE_II.pdf'
+        },
+        {
+            id: 'compiladores',
+            name: 'Compiladores',
+            day: 4, // Thursday
             startHour: 13,
             duration: 2,
             color: 'hsl(259, 94%, 51%)', // Purple
+            icon: Terminal,
+            professor: 'Dr. Sánchez',
+            room: 'COMP-201',
+            pdfLink: 'https://fi.uaemex.mx/portal/docs/coordinaciones/ICO/planF19/Periodo_6/6to_PE_ICO_COMPILADORES.pdf'
+        },
+        {
+            id: 'procesamiento-imagenes',
+            name: 'Procesamiento de Imágenes Digitales',
+            day: 5, // Friday
+            startHour: 11,
+            duration: 2,
+            color: 'hsl(280, 85%, 65%)', // Purple variant
             icon: ChalkboardTeacher,
-            professor: 'Dr. Davis',
-            room: 'CS303'
+            professor: 'Dra. Torres',
+            room: 'IMG-301',
+            pdfLink: 'https://fi.uaemex.mx/portal/docs/coordinaciones/ICO/planF19/Periodo_6/6to_PE_ICO_PROCESAMIENTO_DE_IMAGENES_DIGITALES.pdf'
         }
     ]);
 
