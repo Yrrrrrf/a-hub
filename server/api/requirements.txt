@@ -2,7 +2,5 @@
 uvicorn==0.34.0
 
 # API
-fastapi==0.115.8
-api-forge==0.0.11
-# Testing
-requests==2.32
+fastapi==0.115.11
+prism-py==0.0.1rc1

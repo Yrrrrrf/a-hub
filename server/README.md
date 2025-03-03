@@ -8,7 +8,7 @@ The server is split into two main components:
 
 ### 1. API ([FastAPI](https://fastapi.tiangolo.com/))
 
-Located in `/server/api`, this is our REST API built with FastAPI that handles all client requests. It provides:
+Located in [`/server/api`](./api/), this is our REST API built with FastAPI that handles all client requests. It provides:
 
 - Automatic API documentation (available at `/docs` when running)
 - Built-in request validation
@@ -17,7 +17,7 @@ Located in `/server/api`, this is our REST API built with FastAPI that handles a
 
 ### 2. Database ([PostgreSQL](https://www.postgresql.org/))
 
-Located in `/server/db`, this is our database system that stores and manages all application data. It features:
+Located in [`/server/db`](./db/), this is our database system that stores and manages all application data. It features:
 
 - Well-organized schema structure
 - Automated initialization scripts
@@ -26,12 +26,12 @@ Located in `/server/db`, this is our database system that stores and manages all
 
 ## Project Structure
 
-```
+```sh
 server/
 ├── api/                 # API implementation
-│   ├── src/            # Source code
+│   ├── src/             # API source code (FastAPI + prism-py)
 │   ├── requirements.txt # Python dependencies
-│   └── api.Dockerfile  # API container configuration
+│   └── api.Dockerfile   # API container configuration
 │
 └── db/                 # Database implementation
     ├── init/          # DB initialization scripts
@@ -42,9 +42,8 @@ server/
 ## Getting Started
 
 1. **Environment Setup**
-
    Create a `.env` file in the project root with:
-   ```
+   ```sh
    DB_NAME=a_hub
    DB_OWNER_ADMIN=a_hub_admin
    DB_OWNER_PWORD=password
@@ -54,7 +53,7 @@ server/
 2. **Using Docker (Recommended)**
 
    Just run:
-   ```bash
+   ```sh
    docker-compose up --build
    ```
 
@@ -65,15 +64,3 @@ server/
    - API Documentation: http://localhost:8000/docs
    - API Base URL: http://localhost:8000
    - Database Port: 5432
-
-## Schema Overview
-
-The database is organized into several schemas for better organization:
-
-- `user`: User management and authentication
-- `agnostic`: Shared data across modules
-- `infrastruct`: Infrastructure and facility management
-- `academic`: Academic program and course management
-- `course_offer`: Course scheduling and offerings
-- `student`: Student records and enrollment
-- `library`: Library resources and management
