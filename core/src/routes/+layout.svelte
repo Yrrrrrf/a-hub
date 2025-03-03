@@ -3,7 +3,7 @@
     import '../app.css';
     let { children } = $props();
     import { onMount } from 'svelte';
-    import { appData, forge, apiStore, Kyntharil, gen_types, Altharun, UIShowcase } from 'rune-lab';
+    import { appData, apiStore, Kyntharil, Altharun, UIShowcase } from 'rune-lab';
     import { themeStore } from 'rune-lab';
     // import {  UIShowcase, databaseStore, } from 'rune-lab';
     import { Footer, UrlDisplay, NavBar } from 'rune-lab';
@@ -27,7 +27,7 @@
         });
 
         apiStore.init({  // Initialize API configuration
-            URL: 'http://localhost:8000',
+            URL: 'http://3.88.132.195:8000',  // penchs xd
             VERSION: 'v1',
             TIMEOUT: 30000
         });

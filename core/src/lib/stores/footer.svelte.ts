@@ -7,8 +7,8 @@ export function initFooter() {
                 {
                     title: "Product",
                     links: [
-                        { text: "API Docs", href: "http://localhost:8000/docs" },  // External link
-                        { text: "OpenAPI", href: "http://localhost:8000/openapi.json" },  // External link
+                        { text: "API Docs", href: "http://3.88.132.195:8000/docs" },  // External link
+                        { text: "OpenAPI", href: "http://3.88.132.195:8000/openapi.json" },  // External link
                         // { text: "Features", href: "/features" },  // Internal route
                         // { text: "Pricing", href: "/pricing" }  // Internal route
                     ]

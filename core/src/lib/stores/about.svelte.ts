@@ -157,7 +157,7 @@ class AboutStore {
             title: "Breakthrough in Quantum Computing",
             date: "2024-03-10",
             description: "Research team achieves quantum supremacy milestone",
-            image: "/api/placeholder/400/300",
+            image: "https://picsum.photos/400/300",
             category: "Research"
         },
         {
@@ -166,7 +166,7 @@ class AboutStore {
             title: "International Technology Summit",
             date: "2024-03-15",
             description: "Annual gathering of global tech leaders",
-            image: "/api/placeholder/400/300",
+            image: "https://picsum.photos/400/300",
             category: "Events"
         },
         {
@@ -175,7 +175,7 @@ class AboutStore {
             title: "Top 50 Global University Ranking",
             date: "2024-03-20",
             description: "Recognition for academic excellence",
-            image: "/api/placeholder/400/300",
+            image: "https://picsum.photos/400/300",
             category: "Achievements"
         },
         {
@@ -184,7 +184,7 @@ class AboutStore {
             title: "Launch of AI Ethics Program",
             date: "2024-03-25",
             description: "New curriculum addressing emerging technologies",
-            image: "/api/placeholder/400/300",
+            image: "https://picsum.photos/400/300",
             category: "Academic"
         }
     ]);
@@ -195,7 +195,7 @@ class AboutStore {
             id: "highlight-1",
             title: "State-of-the-art Research Labs",
             description: "Cutting-edge facilities for breakthrough research",
-            image: "/api/placeholder/400/300",
+            image: "https://picsum.photos/400/300",
             stats: [
                 { label: "Labs", value: "50+" },
                 { label: "Equipment Value", value: "$100M+" },
@@ -206,7 +206,7 @@ class AboutStore {
             id: "highlight-2",
             title: "Modern Learning Spaces",
             description: "Technology-enabled collaborative learning environments",
-            image: "/api/placeholder/400/300",
+            image: "https://picsum.photos/400/300",
             stats: [
                 { label: "Classrooms", value: "100+" },
                 { label: "Study Spaces", value: "1,000+" },
@@ -217,7 +217,7 @@ class AboutStore {
             id: "highlight-3",
             title: "Innovation Hub",
             description: "Center for entrepreneurship and innovation",
-            image: "/api/placeholder/400/300",
+            image: "https://picsum.photos/400/300",
             stats: [
                 { label: "Startups", value: "25+" },
                 { label: "Patents", value: "75+" },

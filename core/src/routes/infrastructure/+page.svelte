@@ -83,7 +83,7 @@
 				<div class="card lg:card-side bg-base-100 shadow-xl hover:shadow-2xl transition-all">
 					<figure class="lg:w-1/2">
 						<img
-							src={building.image || '/placeholder.jpg'}
+							src={building.image || '/https://picsum.photos/200/300'}
 							alt={building.name}
 							class="h-full w-full object-cover"
 						/>

@@ -138,7 +138,7 @@ export const okl = new PS();
 
 // src/lib/stores/profile.store.ts
 import { authStore, type UserProfile } from 'rune-lab';
-import { forge, apiStore } from 'rune-lab';
+import { getForge, apiStore } from 'rune-lab';
 import { BaseClient, createCrudOperations } from 'ts-forge';
 
 
@@ -184,7 +184,7 @@ class ProfileStore {
         this.error = null;
 
         const baseClient = new BaseClient(apiStore.getConfig().URL);
-        const t_metadata = forge.getTable('account', 'profile');
+        const t_metadata = (await getForge()).getTable('account', 'profile');
         
         if (!t_metadata) {
             throw new Error('Profile table metadata not found');

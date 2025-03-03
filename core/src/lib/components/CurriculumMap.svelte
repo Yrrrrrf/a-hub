@@ -7,8 +7,10 @@
 		Star
 	} from 'phosphor-svelte';
 	import { onMount } from 'svelte';
+
+	// todo: REMOVE 'ts-forge' FROM 'a-huub'!!!
 	import { createCrudOperations, BaseClient } from 'ts-forge';
-	import { forge, apiStore } from 'rune-lab';
+	import { getForge, apiStore } from 'rune-lab';
 	import SubjectCard from './SubjectCard.svelte';
 
 	interface program_curriculum {
@@ -41,10 +43,11 @@
 
 	// Fetch data on mount
 	onMount(async () => {
+		const baseClient: BaseClient = new BaseClient(apiStore.URL);
+		console.log('Base client:', apiStore.URL);
 		try {
-			const baseClient: BaseClient = new BaseClient(apiStore.getConfig().URL);
 
-			const t_metadata = forge.getTable('academic', 'program_curriculum');
+			const t_metadata = (await getForge()).getTable('academic', 'program_curriculum');
 			if (!t_metadata) {
 				throw new Error('Program curriculum table not found');
 			}

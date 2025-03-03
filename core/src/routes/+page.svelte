@@ -71,7 +71,7 @@
         </div>
     </section>
 
-    Features Section
+    <!-- Features Section -->
     <section class="py-20 container mx-auto px-4">
         <h2 class="text-4xl font-bold text-center mb-16">Why Choose Us</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">

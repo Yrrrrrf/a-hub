@@ -68,7 +68,7 @@ COMMENT ON COLUMN infrastruct.room.building_id IS 'Reference to the building con
 COMMENT ON COLUMN infrastruct.room.capacity IS 'Maximum occupancy of the room';
 
 ALTER TABLE infrastruct.room
-ADD CONSTRAINT check_positive_capacity CHECK (capacity > 0);
+ADD CONSTRAINT check_positive_capacity CHECK (capacity >= 0);
 
 CREATE INDEX idx_room_building ON infrastruct.room(building_id);
 CREATE INDEX idx_room_type ON infrastruct.room(room_type);
