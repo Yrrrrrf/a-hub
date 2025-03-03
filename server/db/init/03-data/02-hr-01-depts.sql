@@ -1,191 +1,267 @@
--- File: 02-hr-01-academic.sql
--- Creates academic departments aligned with existing faculties
+-- File: 02-hr-02-administrative.sql
+-- Populates administrative departments and staff
 
 DO $$
 DECLARE
-    engineering_faculty_id UUID := 'f0000000-0000-4000-a000-000000000001';
-    architecture_faculty_id UUID := 'f1000000-0000-4000-a000-000000000002';
-    
-    -- Department IDs (academic)
-    engineering_dept_id UUID := 'd0100000-0000-4000-a000-000000000001';
-    computer_science_dept_id UUID := 'd0200000-0000-4000-a000-000000000002';
-    civil_engineering_dept_id UUID := 'd0300000-0000-4000-a000-000000000003';
-    architecture_dept_id UUID := 'd0400000-0000-4000-a000-000000000004';
-    design_dept_id UUID := 'd0500000-0000-4000-a000-000000000005';
-    
-    -- Position IDs (academic)
-    dean_position_id UUID := '70100000-0000-4000-a000-000000000001';
-    dept_head_position_id UUID := '70200000-0000-4000-a000-000000000002';
-    professor_position_id UUID := '70300000-0000-4000-a000-000000000003';
-    assoc_professor_position_id UUID := '70400000-0000-4000-a000-000000000004';
-    assist_professor_position_id UUID := '70500000-0000-4000-a000-000000000005';
-    instructor_position_id UUID := '70600000-0000-4000-a000-000000000006';
-    researcher_position_id UUID := '70700000-0000-4000-a000-000000000007';
-    
-    -- Faculty member IDs
-    dean_engineering_id UUID := 'e0100000-0000-4000-a000-000000000001';
-    dean_architecture_id UUID := 'e0200000-0000-4000-a000-000000000002';
-    comp_sci_head_id UUID := 'e0300000-0000-4000-a000-000000000003';
-    civil_eng_head_id UUID := 'e0400000-0000-4000-a000-000000000004';
-    arch_head_id UUID := 'e0500000-0000-4000-a000-000000000005';
-    design_head_id UUID := 'e0600000-0000-4000-a000-000000000006';
+    -- Administrative Department IDs
+    hr_dept_id UUID := 'd1000000-0000-4000-a000-000000000010';
+    finance_dept_id UUID := 'd1100000-0000-4000-a000-000000000011';
+    it_dept_id UUID := 'd1200000-0000-4000-a000-000000000012';
+    student_affairs_dept_id UUID := 'd1300000-0000-4000-a000-000000000013';
+    facilities_dept_id UUID := 'd1400000-0000-4000-a000-000000000014';
+
+    -- Admin Position IDs
+    director_position_id UUID := '71000000-0000-4000-a000-000000000010';
+    manager_position_id UUID := '71100000-0000-4000-a000-000000000011';
+    specialist_position_id UUID := '71200000-0000-4000-a000-000000000012';
+    coordinator_position_id UUID := '71300000-0000-4000-a000-000000000013';
+    technician_position_id UUID := '71400000-0000-4000-a000-000000000014';
+
+    -- Department head IDs
+    hr_director_id UUID := 'e1000000-0000-4000-a000-000000000010';
+    finance_director_id UUID := 'e1100000-0000-4000-a000-000000000011';
+    it_director_id UUID := 'e1200000-0000-4000-a000-000000000012';
+    student_affairs_director_id UUID := 'e1300000-0000-4000-a000-000000000013';
+    facilities_director_id UUID := 'e1400000-0000-4000-a000-000000000014';
 BEGIN
-    -- Create academic positions
-    PERFORM hr.add_position(
-        dean_position_id, 
-        'Dean', 
-        'Oversees an entire faculty, manages academic and administrative affairs'
-    );
-    
-    PERFORM hr.add_position(
-        dept_head_position_id, 
-        'Department Head', 
-        'Manages a specific academic department within a faculty'
-    );
-    
-    PERFORM hr.add_position(
-        professor_position_id, 
-        'Professor', 
-        'Senior academic with teaching and research responsibilities'
-    );
-    
-    PERFORM hr.add_position(
-        assoc_professor_position_id, 
-        'Associate Professor', 
-        'Mid-level faculty with teaching and research roles'
-    );
-    
-    PERFORM hr.add_position(
-        assist_professor_position_id, 
-        'Assistant Professor', 
-        'Early-career faculty member'
-    );
-    
-    PERFORM hr.add_position(
-        instructor_position_id, 
-        'Instructor', 
-        'Teaching-focused faculty member'
-    );
-    
-    PERFORM hr.add_position(
-        researcher_position_id, 
-        'Researcher', 
-        'Primarily conducts research with limited teaching duties'
-    );
-    
-    -- Create Engineering Faculty departments
-    PERFORM hr.create_faculty_department(
-        engineering_faculty_id,
-        engineering_dept_id,
-        'Engineering Department',
-        'Main administrative department for the Engineering Faculty'
-    );
-    
-    PERFORM hr.create_faculty_department(
-        engineering_faculty_id,
-        computer_science_dept_id,
-        'Computer Science Department',
-        'Department focused on computer science and software engineering'
-    );
-    
-    PERFORM hr.create_faculty_department(
-        engineering_faculty_id,
-        civil_engineering_dept_id,
-        'Civil Engineering Department',
-        'Department focused on civil engineering and infrastructure'
-    );
-    
-    -- Create Architecture Faculty departments
-    PERFORM hr.create_faculty_department(
-        architecture_faculty_id,
-        architecture_dept_id,
-        'Architecture Department',
-        'Main department for architectural studies'
-    );
-    
-    PERFORM hr.create_faculty_department(
-        architecture_faculty_id,
-        design_dept_id,
-        'Design Department',
-        'Department focused on design principles and applications'
-    );
-    
-    -- Create key academic leadership
-    -- Deans
+    -- Create administrative positions
+    INSERT INTO hr.position (id, title, description) VALUES
+    (director_position_id, 'Director', 'Leads and manages an administrative department'),
+    (manager_position_id, 'Manager', 'Oversees operations within a department area'),
+    (specialist_position_id, 'Specialist', 'Subject matter expert in specific area'),
+    (coordinator_position_id, 'Coordinator', 'Organizes and coordinates departmental activities'),
+    (technician_position_id, 'Technician', 'Provides technical support and services')
+    ON CONFLICT (id) DO UPDATE
+    SET title = EXCLUDED.title,
+        description = EXCLUDED.description;
+
+    -- Create Administrative Departments
+
+    -- 1. Human Resources Department
+    INSERT INTO hr.department (id, name, description)
+    VALUES (hr_dept_id, 'Human Resources', 'Manages recruitment, employee relations, and personnel matters');
+
+    -- 2. Finance Department
+    INSERT INTO hr.department (id, name, description)
+    VALUES (finance_dept_id, 'Finance & Accounting', 'Handles financial operations, budgeting, and accounting');
+
+    -- 3. IT Department
+    INSERT INTO hr.department (id, name, description)
+    VALUES (it_dept_id, 'Information Technology', 'Provides technology infrastructure and support services');
+
+    -- 4. Student Affairs
+    INSERT INTO hr.department (id, name, description)
+    VALUES (student_affairs_dept_id, 'Student Affairs', 'Supports student life, activities, and well-being');
+
+    -- 5. Facilities Management
+    INSERT INTO hr.department (id, name, description)
+    VALUES (facilities_dept_id, 'Facilities Management', 'Maintains campus buildings, grounds, and infrastructure');
+
+    -- Add Department Directors
+
+    -- HR Director
     PERFORM hr.add_employee_with_position(
-        dean_engineering_id,
-        'Roberto',
-        'Martínez',
-        'faculty',
-        engineering_dept_id,
-        dean_position_id,
+        hr_director_id,
+        'Carmen',
+        'Jimenez',
+        'administrative',
+        hr_dept_id,
+        director_position_id,
         TRUE,
-        '2020-08-01'
+        '2019-03-15'
     );
-    
+
+    -- Finance Director
     PERFORM hr.add_employee_with_position(
-        dean_architecture_id,
-        'Sofia',
-        'Hernández',
-        'faculty',
-        architecture_dept_id,
-        dean_position_id,
+        finance_director_id,
+        'Javier',
+        'Morales',
+        'administrative',
+        finance_dept_id,
+        director_position_id,
         TRUE,
-        '2019-06-15'
+        '2018-05-10'
     );
-    
-    -- Department Heads
+
+    -- IT Director
     PERFORM hr.add_employee_with_position(
-        comp_sci_head_id,
-        'Carlos',
-        'Vega',
-        'faculty',
-        computer_science_dept_id,
-        dept_head_position_id,
+        it_director_id,
+        'Fernando',
+        'Ramos',
+        'administrative',
+        it_dept_id,
+        director_position_id,
         TRUE,
-        '2021-01-10'
+        '2020-01-20'
     );
-    
+
+    -- Student Affairs Director
     PERFORM hr.add_employee_with_position(
-        civil_eng_head_id,
-        'Mariana',
-        'Rojas',
-        'faculty',
-        civil_engineering_dept_id,
-        dept_head_position_id,
+        student_affairs_director_id,
+        'Ana',
+        'Garcia',
+        'administrative',
+        student_affairs_dept_id,
+        director_position_id,
         TRUE,
-        '2022-03-01'
+        '2019-08-05'
     );
-    
+
+    -- Facilities Director
     PERFORM hr.add_employee_with_position(
-        arch_head_id,
-        'Daniel',
-        'Luna',
-        'faculty',
-        architecture_dept_id,
-        dept_head_position_id,
+        facilities_director_id,
+        'Ricardo',
+        'Fuentes',
+        'administrative',
+        facilities_dept_id,
+        director_position_id,
         TRUE,
-        '2020-09-01'
+        '2018-11-12'
     );
-    
+
+    -- Update departments with heads
+    UPDATE hr.department SET head_id = hr_director_id WHERE id = hr_dept_id;
+    UPDATE hr.department SET head_id = finance_director_id WHERE id = finance_dept_id;
+    UPDATE hr.department SET head_id = it_director_id WHERE id = it_dept_id;
+    UPDATE hr.department SET head_id = student_affairs_director_id WHERE id = student_affairs_dept_id;
+    UPDATE hr.department SET head_id = facilities_director_id WHERE id = facilities_dept_id;
+
+    -- Add Staff to HR Department
     PERFORM hr.add_employee_with_position(
-        design_head_id,
-        'Laura',
-        'Mendoza',
-        'faculty',
-        design_dept_id,
-        dept_head_position_id,
+        'e2000000-0000-4000-a000-000000000020',
+        'Patricia',
+        'Lopez',
+        'administrative',
+        hr_dept_id,
+        manager_position_id,
         TRUE,
-        '2021-07-15'
+        '2020-03-10'
     );
-    
-    -- Update departments with their heads
-    UPDATE hr.department SET head_id = comp_sci_head_id WHERE id = computer_science_dept_id;
-    UPDATE hr.department SET head_id = civil_eng_head_id WHERE id = civil_engineering_dept_id;
-    UPDATE hr.department SET head_id = arch_head_id WHERE id = architecture_dept_id;
-    UPDATE hr.department SET head_id = design_head_id WHERE id = design_dept_id;
-    UPDATE hr.department SET head_id = dean_engineering_id WHERE id = engineering_dept_id;
-    UPDATE hr.department SET head_id = dean_architecture_id WHERE id = architecture_dept_id;
-    
-    RAISE NOTICE 'Academic departments and leadership positions created successfully';
+
+    PERFORM hr.add_employee_with_position(
+        'e2001000-0000-4000-a000-000000000021',
+        'Manuel',
+        'Rodriguez',
+        'administrative',
+        hr_dept_id,
+        specialist_position_id,
+        TRUE,
+        '2021-06-15'
+    );
+
+    -- Add Staff to Finance Department
+    PERFORM hr.add_employee_with_position(
+        'e2100000-0000-4000-a000-000000000022',
+        'Isabel',
+        'Diaz',
+        'administrative',
+        finance_dept_id,
+        manager_position_id,
+        TRUE,
+        '2019-11-05'
+    );
+
+    PERFORM hr.add_employee_with_position(
+        'e2101000-0000-4000-a000-000000000023',
+        'Victor',
+        'Navarro',
+        'administrative',
+        finance_dept_id,
+        specialist_position_id,
+        TRUE,
+        '2020-09-20'
+    );
+
+    -- Add Staff to IT Department
+    PERFORM hr.add_employee_with_position(
+        'e2200000-0000-4000-a000-000000000024',
+        'Lucia',
+        'Reyes',
+        'technical_support',
+        it_dept_id,
+        manager_position_id,
+        TRUE,
+        '2020-02-15'
+    );
+
+    PERFORM hr.add_employee_with_position(
+        'e2201000-0000-4000-a000-000000000025',
+        'Andres',
+        'Soto',
+        'technical_support',
+        it_dept_id,
+        technician_position_id,
+        TRUE,
+        '2021-04-10'
+    );
+
+    PERFORM hr.add_employee_with_position(
+        'e2202000-0000-4000-a000-000000000026',
+        'Diana',
+        'Medina',
+        'technical_support',
+        it_dept_id,
+        technician_position_id,
+        TRUE,
+        '2022-01-15'
+    );
+
+    -- Add Staff to Student Affairs
+    PERFORM hr.add_employee_with_position(
+        'e2300000-0000-4000-a000-000000000027',
+        'Gabriel',
+        'Ortiz',
+        'administrative',
+        student_affairs_dept_id,
+        coordinator_position_id,
+        TRUE,
+        '2020-08-10'
+    );
+
+    PERFORM hr.add_employee_with_position(
+        'e2301000-0000-4000-a000-000000000028',
+        'Margarita',
+        'Vargas',
+        'administrative',
+        student_affairs_dept_id,
+        coordinator_position_id,
+        TRUE,
+        '2021-09-05'
+    );
+
+    -- Add Staff to Facilities
+    PERFORM hr.add_employee_with_position(
+        'e2400000-0000-4000-a000-000000000029',
+        'Oscar',
+        'Mendez',
+        'facilities',
+        facilities_dept_id,
+        manager_position_id,
+        TRUE,
+        '2019-10-15'
+    );
+
+    PERFORM hr.add_employee_with_position(
+        'e2401000-0000-4000-a000-000000000030',
+        'Teresa',
+        'Castro',
+        'facilities',
+        facilities_dept_id,
+        technician_position_id,
+        TRUE,
+        '2020-05-20'
+    );
+
+    PERFORM hr.add_employee_with_position(
+        'e2402000-0000-4000-a000-000000000031',
+        'Hector',
+        'Rios',
+        'facilities',
+        facilities_dept_id,
+        technician_position_id,
+        TRUE,
+        '2021-03-10'
+    );
+
+    RAISE NOTICE 'Administrative departments and staff successfully created';
 END $$;
