@@ -27,7 +27,7 @@ END;
 $$ LANGUAGE plpgsql;
 
 -- Function to associate a course with a progra
-CREATE OR REPLACE FUNCTION associate_course_with_program(
+CREATE OR REPLACE FUNCTION academic.associate_course_with_program(
     p_program_id UUID,
     p_course_id UUID,
     p_is_required BOOLEAN,
@@ -65,7 +65,7 @@ BEGIN
 
     -- If the course was added successfully or already exists, associate it with the program
     IF v_course_id IS NOT NULL THEN
-        PERFORM associate_course_with_program(p_program_id, v_course_id, p_is_required, p_recommended_semester);
+        PERFORM academic.associate_course_with_program(p_program_id, v_course_id, p_is_required, p_recommended_semester);
         RAISE NOTICE 'Course % added and associated with program successfully.', p_code;
     ELSE
         RAISE NOTICE 'Failed to add course %', p_code;

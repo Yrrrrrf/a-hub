@@ -9,6 +9,6 @@ authors = [
 requires-python = ">=3.12"
 dependencies = [
     "fastapi>=0.115.11",
-    "prism-py>=0.0.1rc1",
+    "prism-py>=0.0.1",
     "uvicorn>=0.34.0"
 ]
