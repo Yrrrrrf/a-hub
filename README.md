@@ -68,6 +68,9 @@ Including the separation in some schemas that help to organize the data in a mor
 
 This separation allows for better organization and management of data.
 
+<!-- 
+
+
 ## Contributing
 
 We welcome contributions to Academic Hub! Please follow these steps to contribute:
@@ -78,7 +81,10 @@ We welcome contributions to Academic Hub! Please follow these steps to contribut
 4. Push to the branch: `git push origin feature/your-feature-name`
 5. Submit a pull request
 
-Please read our [Contributing Guide](CONTRIBUTING.md) for more details.
+Please read our [Contributing Guide](CONTRIBUTING.md) for more details. 
+
+
+-->
 
 ## License
 

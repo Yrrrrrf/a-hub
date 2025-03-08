@@ -22,8 +22,8 @@ BEGIN
         first_name, 
         last_name, 
         hire_date, 
-        job_category, 
-        department_id, 
+        job_category,
+        department_id,
         is_active
     )
     VALUES (
@@ -32,7 +32,7 @@ BEGIN
         p_last_name, 
         p_hire_date, 
         p_job_category, 
-        p_department_id, 
+        p_department_id,
         p_is_active
     )
     ON CONFLICT (id) DO UPDATE
