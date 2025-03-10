@@ -1,4 +1,16 @@
 -- File: core_courses.sql
+-- todo: Move the add_course fn to the academic schema!
+-- todo: Move the add_course fn to the academic schema!
+-- todo: Move the add_course fn to the academic schema!
+-- todo: Move the add_course fn to the academic schema!
+-- todo: Move the add_course fn to the academic schema!
+-- todo: Move the add_course fn to the academic schema!
+-- todo: Move the add_course fn to the academic schema!
+-- todo: Move the add_course fn to the academic schema!
+-- todo: Move the add_course fn to the academic schema!
+-- todo: Move the add_course fn to the academic schema!
+-- todo: Move the add_course fn to the academic schema!
+-- todo: Move the add_course fn to the academic schema!
 DO $$
 DECLARE
     course_type academic.course_category DEFAULT 'core';
