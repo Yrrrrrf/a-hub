@@ -6,6 +6,11 @@
 <!-- [![GitHub](https://img.shields.io/badge/github-Yrrrrrf%2Fa--hub-58A6FF?style=for-the-badge&logo=github)](https://github.com/Yrrrrrf/a-hub) -->
 <!-- [![LICENSE](https://img.shields.io/badge/license-MIT-green?style=for-the-badge)](./LICENSE) -->
 
+Check the last release [here](http://3.88.132.195:3000/)!
+
+> The shown version was updated on 2025-01-13
+> So it may not be the latest version...
+
 ## Features
 
 - **Comprehensive Data Management**: Handle student records, course information, faculty details, and more.
