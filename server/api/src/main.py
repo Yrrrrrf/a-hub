@@ -12,7 +12,8 @@ app = FastAPI()
 db = os.getenv("DB_NAME", "a_hub")
 user = os.getenv("DB_OWNER_ADMIN", "a_hub_admin")
 password = os.getenv("DB_OWNER_PWORD", "password")
-host = os.getenv("DB_HOST", "localhost.docker.internal")
+# host = os.getenv("DB_HOST", "localhost.docker.internal")
+host = os.getenv("DB_HOST", "localhost")
 
 # Database connection setup
 db_client = DbClient(

@@ -28,7 +28,6 @@ SELECT
     s.last_name,
     c.code AS course_code,
     c.title AS course_title,
-    co.section_number,
     e.enrollment_date,
     e.status
 FROM
