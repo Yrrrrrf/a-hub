@@ -1,85 +1,49 @@
-import os
+# db = os.getenv("DB_NAME", "a_hub")
+# user = os.getenv("DB_OWNER_ADMIN", "a_hub_admin")
+# password = os.getenv("DB_OWNER_PWORD", "password")
+# # host = os.getenv("DB_HOST", "localhost.docker.internal")
+# host = os.getenv("DB_HOST", "localhost")
 
+# examples/quickstart.py
+import uvicorn
 from fastapi import FastAPI
-from prism import *
-from prism.core.logging import LogLevel, log
+from prism.db.client import DbClient
+from prism.prism import ApiPrism
 
-log.set_level(LogLevel.TRACE)  # Show debug messages and above
+# 1. Load Database Configuration from Environment
+db_url = "postgresql://a_hub_admin:password@host.docker.internal:5432/a_hub"
+# db_url = "postgresql://pharma_admin:password@localhost:5432/pharma_care"
 
-
-app = FastAPI()
-
-db = os.getenv("DB_NAME", "a_hub")
-user = os.getenv("DB_OWNER_ADMIN", "a_hub_admin")
-password = os.getenv("DB_OWNER_PWORD", "password")
-# host = os.getenv("DB_HOST", "localhost.docker.internal")
-host = os.getenv("DB_HOST", "localhost")
-
-# Database connection setup
-db_client = DbClient(
-    config=DbConfig(
-        db_type=os.getenv("DB_TYPE", "postgresql"),
-        driver_type=os.getenv("DRIVER_TYPE", "sync"),
-        # * these values will be read from the environment variables!
-        # So, the current values are just defaults in case the environment variables are not set
-        database=db,
-        user=user,
-        password=password,
-        host=host,
-        port=int(os.getenv("DB_PORT", 5432)),
-        echo=False,
-        pool_config=PoolConfig(
-            pool_size=5, max_overflow=10, pool_timeout=30, pool_pre_ping=True
-        ),
-    )
-)
-db_client.test_connection()
-db_client.log_metadata_stats()
-
-# Create the model manager to organize database objects
-model_manager = ModelManager(
-    db_client=db_client,
-    include_schemas=[
-        # * Default schemas
-        # 'public',  # * This is the default schema
-        "account",
-        "auth",
-        # * A-Hub schemas
-        "agnostic",
-        "infrastruct",
-        "hr",
-        "academic",
-        "course_offer",
-        "student",
-        "library",
-    ],
+# 2. Initialize FastAPI and Prism
+# Create the main FastAPI app.
+app = FastAPI(
+    title="prism-py",
+    description="A powerful REST API created directly from a database schema.",
+    version="0.0.10",
 )
 
-# Initialize API generator
-api_prism = ApiPrism(
-    config=PrismConfig(
-        project_name=db_client.config.database,
-        version="0.1.0",
-    ),
-    app=app,
-)
+# Initialize the Prism orchestrator.
+api_prism = ApiPrism(db_client=DbClient(db_url), app=app)
 
-# Generate metadata routes
-api_prism.gen_metadata_routes(model_manager)
-api_prism.gen_health_routes(model_manager)
-api_prism.gen_table_routes(model_manager)
-api_prism.gen_view_routes(model_manager)
-api_prism.gen_fn_routes(model_manager)
+# 3. Generate All API Routes
+api_prism.gen_all_routes()
+# api_prism.gen_metadata_routes()  # Generate /dt/* routes
+# api_prism.gen_health_routes()  # Generate /health/* routes
+# api_prism.gen_view_routes()  # Generate read-only routes for all views
+# api_prism.gen_table_routes()  # Generate CRUD+ routes for all tables
+# api_prism.gen_fn_routes()  # Generate routes for all functions
+# api_prism.gen_proc_routes()  # Generate routes for all procedures
+# api_prism.gen_trig_routes()  # Acknowledges triggers in the logs
 
+api_prism.cache.log_stats()  # Log cache statistics to the console
 
-# Display database statistics
-model_manager.log_metadata_stats()
-
-api_prism.print_welcome(db_client)
-print()
-
+# 4. Run the Server
 if __name__ == "__main__":
-    import uvicorn
+    # Log connection stats and a welcome message before starting the server.
+    api_prism.db_client.log_connection_stats()
+    api_prism.print_welcome_message(host="127.0.0.1", port=8000)
 
-    print("Starting server...")
-    # uvicorn.run(app, host="127.0.0.1", port=8000)
+    print(f"🚀 Starting server at http://127.0.0.1:8000")
+    print("   Access API docs at http://127.0.0.1:8000/docs")
+    print("   Press CTRL+C to stop.")
+    uvicorn.run("__main__:app", host="127.0.0.1", port=8000, reload=True)
